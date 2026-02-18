@@ -19,12 +19,6 @@
   --teal: #14B8A6;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-deep);
