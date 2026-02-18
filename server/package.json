@@ -8,7 +8,7 @@
     "start": "node server.js",
     "seed": "node seeds/seed.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
