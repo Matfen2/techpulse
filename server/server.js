@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
+import productRoutes from './routes/products.js';
 
 dotenv.config();
 
@@ -30,8 +31,8 @@ app.get('/api/health', (req, res) => {
 // ── Auth routes ──
 app.use('/api/auth', authRoutes);
 
-// TODO: J3 — Product routes
-// app.use('/api/products', productRoutes);
+// ── Product routes ──
+app.use('/api/products', productRoutes);
 
 // ── Start ──
 const PORT = process.env.PORT || 5000;
