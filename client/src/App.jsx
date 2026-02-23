@@ -3,9 +3,11 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Catalogue from './pages/Catalogue';
+import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Catalogue from './pages/Catalogue';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/catalogue" element={<Catalogue />} />
+              <Route path="/catalogue/:slug" element={<ProductDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/catalogue" element={<Catalogue />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
