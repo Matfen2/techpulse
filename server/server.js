@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
+import reviewRoutes from './routes/reviews.js';
+import favoriteRoutes from './routes/favorites.js';
 
 dotenv.config();
 
@@ -33,6 +35,10 @@ app.use('/api/auth', authRoutes);
 
 // ── Product routes ──
 app.use('/api/products', productRoutes);
+
+// 
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/favorites', favoriteRoutes);
 
 // ── Start ──
 const PORT = process.env.PORT || 5000;
