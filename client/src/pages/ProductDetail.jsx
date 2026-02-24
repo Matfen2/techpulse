@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getProductBySlug } from '../services/productService';
+import { useAuth } from '../context/AuthContext';
+import { useFavorites } from '../context/FavoritesContext';
+import ReviewSection from '../components/ReviewSection';
 import Rating from '../components/Rating';
 
 const categoryColors = {
@@ -13,6 +16,8 @@ const categoryColors = {
 
 const ProductDetail = () => {
   const { slug } = useParams();
+  const { isAuthenticated } = useAuth();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -50,6 +55,8 @@ const ProductDetail = () => {
       </div>
     );
   }
+
+  const liked = isFavorite(product._id);
 
   return (
     <motion.div
@@ -148,14 +155,23 @@ const ProductDetail = () => {
               </p>
             </div>
 
-            {/* Favorite button (prepared for J6) */}
+            {/* Action buttons */}
             <div className="flex items-center gap-4 mb-8">
               <button className="flex-1 py-3 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-semibold rounded-lg transition-colors cursor-pointer">
                 Ajouter au panier
               </button>
-              <button className="w-12 h-12 flex items-center justify-center border border-[var(--border)] rounded-lg hover:border-[var(--error)] hover:text-[var(--error)] text-[var(--text-muted)] transition-colors cursor-pointer text-xl">
-                ♡
-              </button>
+              {isAuthenticated && (
+                <button
+                  onClick={() => toggleFavorite(product._id)}
+                  className={`w-12 h-12 flex items-center justify-center border rounded-lg transition-colors cursor-pointer text-xl ${
+                    liked
+                      ? 'bg-[var(--error)]/10 border-[var(--error)] text-[var(--error)]'
+                      : 'border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--error)] hover:text-[var(--error)]'
+                  }`}
+                >
+                  {liked ? '♥' : '♡'}
+                </button>
+              )}
             </div>
 
             {/* Specs */}
@@ -183,13 +199,8 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Section avis (placeholder for J6) */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-8 text-center">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">Avis clients</h2>
-          <p className="text-[var(--text-muted)]">Les avis seront disponibles prochainement</p>
-        </div>
-      </div>
+      {/* Reviews */}
+      <ReviewSection productId={product._id} />
     </motion.div>
   );
 };
