@@ -8,6 +8,7 @@ import productRoutes from './routes/products.js';
 import reviewRoutes from './routes/reviews.js';
 import favoriteRoutes from './routes/favorites.js';
 import listingRoutes from './routes/listings.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -45,6 +46,9 @@ app.use('/api/favorites', favoriteRoutes);
 
 // ── Listings routes ──
 app.use('/api/listings', listingRoutes);
+
+// ── Admin routes ──
+app.use('/api/admin', adminRoutes);
 
 // ── Start ──
 const PORT = process.env.PORT || 5000;

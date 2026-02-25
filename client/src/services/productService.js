@@ -4,6 +4,13 @@ export const getProducts = (params) => API.get('/products', { params });
 export const getProductBySlug = (slug) => API.get(`/products/${slug}`);
 export const getBrands = () => API.get('/products/brands');
 
+// Admin
+export const getAllListings = (params) => API.get('/admin/listings', { params });
+export const verifyListing = (id, status) => API.patch(`/listings/${id}/verify`, { status });
+export const getAdminStats = () => API.get('/admin/stats');
+export const getAllUsers = () => API.get('/admin/users');
+export const deleteUser = (id) => API.delete(`/admin/users/${id}`);
+
 // Reviews
 export const getProductReviews = (productId) => API.get(`/reviews/${productId}`);
 export const createReview = (productId, data) => API.post(`/reviews/${productId}`, data);
