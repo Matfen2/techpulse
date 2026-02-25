@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
 import reviewRoutes from './routes/reviews.js';
 import favoriteRoutes from './routes/favorites.js';
+import listingRoutes from './routes/listings.js';
 
 dotenv.config();
 
@@ -33,12 +34,17 @@ app.get('/api/health', (req, res) => {
 // ── Auth routes ──
 app.use('/api/auth', authRoutes);
 
-// ── Product routes ──
+// ── Products routes ──
 app.use('/api/products', productRoutes);
 
-// 
+// ── Reviews routes ──
 app.use('/api/reviews', reviewRoutes);
+
+// ── Favorites routes ──
 app.use('/api/favorites', favoriteRoutes);
+
+// ── Listings routes ──
+app.use('/api/listings', listingRoutes);
 
 // ── Start ──
 const PORT = process.env.PORT || 5000;
