@@ -96,7 +96,8 @@ export const createListing = async (req, res) => {
     const videoResult = await uploadToCloudinary(videoFile.buffer, {
       resource_type: 'video',
       folder: 'techpulse/listings/videos',
-      transformation: [{ quality: 'auto', fetch_format: 'mp4' }],
+      eager: [{ quality: 'auto', format: 'mp4' }],
+      eager_async: true,
     });
 
     // Upload images (optional)
@@ -131,6 +132,7 @@ export const createListing = async (req, res) => {
 
     res.status(201).json(listing);
   } catch (err) {
+    console.error('❌ CREATE LISTING ERROR:', err.message);
     res.status(400).json({ message: 'Erreur de création', error: err.message });
   }
 };

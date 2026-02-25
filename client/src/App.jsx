@@ -15,6 +15,9 @@ import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
+import Marketplace from './pages/Marketplace';
+import CreateListing from './pages/CreateListing';
+import ListingDetail from './pages/ListingDetail';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/catalogue" element={<Catalogue />} />
                 <Route path="/catalogue/:slug" element={<ProductDetail />} />
+                <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/marketplace/new" element={<CreateListing />} />
+                <Route path="/marketplace/:slug" element={<ListingDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="*" element={<NotFound />} />

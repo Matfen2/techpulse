@@ -15,3 +15,13 @@ export const getMyReviews = () => API.get('/reviews/user/me');
 export const getFavorites = () => API.get('/favorites');
 export const addFavorite = (productId) => API.post(`/favorites/${productId}`);
 export const removeFavorite = (productId) => API.delete(`/favorites/${productId}`);
+
+// Listings (Marketplace)
+export const getListings = (params) => API.get('/listings', { params });
+export const getListingBySlug = (slug) => API.get(`/listings/${slug}`);
+export const getMyListings = () => API.get('/listings/my');
+export const createListing = (formData) =>
+  API.post('/listings', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+export const deleteListing = (id) => API.delete(`/listings/${id}`);

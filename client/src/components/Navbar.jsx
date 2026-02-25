@@ -20,6 +20,12 @@ const Navbar = () => {
           >
             Catalogue
           </Link>
+          <Link
+            to="/marketplace"
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+          >
+            Marketplace
+          </Link>
 
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
