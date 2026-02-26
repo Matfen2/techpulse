@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { getListingBySlug } from '../services/productService';
 
 const conditionColors = {
@@ -12,6 +14,8 @@ const conditionColors = {
 
 const ListingDetail = () => {
   const { slug } = useParams();
+  const { addToCart, isInCart } = useCart();
+  const { isAuthenticated } = useAuth();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -178,10 +182,29 @@ const ListingDetail = () => {
               </div>
             )}
 
-            {/* Contact button */}
-            <button className="w-full py-3 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-semibold rounded-lg transition-colors cursor-pointer mb-8">
-              Contacter le vendeur
-            </button>
+            {/* Boutons d'action */}
+            <div className="flex gap-3 mt-6">
+              {isAuthenticated ? (
+                <button
+                  onClick={() => addToCart(listing)}
+                  disabled={isInCart(listing._id)}
+                  className={`flex-1 py-3 rounded-lg font-medium text-center transition-colors ${
+                    isInCart(listing._id)
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30 cursor-default'
+                      : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]'
+                  }`}
+                >
+                  {isInCart(listing._id) ? '✓ Dans le panier' : '🛒 Ajouter au panier'}
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="flex-1 py-3 bg-[var(--primary)] text-white rounded-lg font-medium text-center hover:bg-[var(--primary-hover)] transition-colors"
+                >
+                  Se connecter pour acheter
+                </Link>
+              )}
+            </div>
 
             {/* Seller card */}
             <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-5">
