@@ -24,6 +24,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminListings from './pages/AdminListings';
 import AdminUsers from './pages/AdminUsers';
 import Dashboard from './pages/Dashboard';
+import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/marketplace/new" element={<CreateListing />} />
                   <Route path="/marketplace/:slug" element={<ListingDetail />} />
                   <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+                  <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
                   <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                   <Route path="/admin" element={<PrivateRoute adminOnly><AdminDashboard /></PrivateRoute>} />
                   <Route path="/admin/listings" element={<PrivateRoute adminOnly><AdminListings /></PrivateRoute>} />
