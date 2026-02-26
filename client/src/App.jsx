@@ -22,6 +22,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminListings from './pages/AdminListings';
 import AdminUsers from './pages/AdminUsers';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/marketplace" element={<Marketplace />} />
                 <Route path="/marketplace/new" element={<CreateListing />} />
                 <Route path="/marketplace/:slug" element={<ListingDetail />} />
+                <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                 <Route path="/admin" element={<PrivateRoute adminOnly><AdminDashboard /></PrivateRoute>} />
                 <Route path="/admin/listings" element={<PrivateRoute adminOnly><AdminListings /></PrivateRoute>} />
                 <Route path="/admin/users" element={<PrivateRoute adminOnly><AdminUsers /></PrivateRoute>} />

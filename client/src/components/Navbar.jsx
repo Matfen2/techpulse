@@ -29,12 +29,15 @@ const Navbar = () => {
 
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
-              <span className="text-[var(--text-muted)] text-sm">
+              <Link
+                to="/dashboard"
+                className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors text-sm"
+              >
                 {user?.firstName}
-              </span>
+              </Link>
               {user?.role === 'admin' && (
                 <Link
-                  to="/admin/products"
+                  to="/admin"
                   className="text-[var(--primary)] text-sm hover:underline"
                 >
                   Admin
