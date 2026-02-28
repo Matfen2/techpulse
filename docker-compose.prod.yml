@@ -1,0 +1,22 @@
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+services:
+  mongo:
+    restart: always
+
+  server:
+    build:
+      target: prod
+    container_name: techpulse-server-prod
+    restart: always
+    environment:
+      - NODE_ENV=production
+    volumes: []
+
+  client:
+    build:
+      target: prod
+    container_name: techpulse-client-prod
+    restart: always
+    ports:
+      - "80:80"
+    volumes: []
