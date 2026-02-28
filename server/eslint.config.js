@@ -1,6 +1,9 @@
 import js from '@eslint/js';
 
 export default [
+  {
+    ignores: ['jest.config.js'],
+  },
   js.configs.recommended,
   {
     languageOptions: {

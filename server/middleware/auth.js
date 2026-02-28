@@ -20,7 +20,7 @@ export const verifyToken = async (req, res, next) => {
 
     req.user = { id: user._id, role: user.role };
     next();
-  } catch (err) {
+  } catch (_err) {
     res.status(401).json({ message: 'Token invalide ou expiré' });
   }
 };
