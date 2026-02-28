@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { getProducts, getBrands } from '../services/productService';
 import ProductCard from '../components/ProductCard';
 
+/* ── Constants ── */
 const categories = [
   { name: 'Smartphone', icon: '📱', color: 'var(--primary)' },
   { name: 'Laptop', icon: '💻', color: 'var(--info)' },
@@ -11,23 +12,33 @@ const categories = [
   { name: 'Accessoire', icon: '🎧', color: 'var(--purple)' },
 ];
 
+const brandLogos = {
+  Samsung: '/images/samsung-logo.png',
+  Apple: '/images/apple-logo.jpg',
+  Xiaomi: '/images/xiaomi-logo.png',
+  Asus: '/images/asus-logo.jpg',
+  Sony: '/images/sony-logo.png',
+  Lenovo: '/images/lenovo-logo.png',
+};
+
+/* ── Animation helpers ── */
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-50px' },
 };
 
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.08 } },
-  viewport: { once: true },
-};
+const float = (delay = 0, duration = 3) => ({
+  y: [0, -12, 0],
+  transition: {
+    duration,
+    repeat: Infinity,
+    ease: 'easeInOut',
+    delay,
+  },
+});
 
-const cardVariant = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-};
-
+/* ── Component ── */
 const Home = () => {
   const [popularProducts, setPopularProducts] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -72,23 +83,32 @@ const Home = () => {
     );
   }
 
+  const marqueBrands = [...brands, ...brands];
+
   return (
     <div className="overflow-hidden">
-      {/* ── Hero ── */}
+
+      {/* ══════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════ */}
       <section className="relative bg-[var(--bg-deep)] overflow-hidden">
-        {/* Background grid effect */}
+        {/* Dot grid background */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, var(--primary) 1px, transparent 0)',
-            backgroundSize: '40px 40px',
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, var(--primary) 1px, transparent 0)',
+              backgroundSize: '40px 40px',
+            }}
+          />
         </div>
 
         {/* Gradient orbs */}
         <div className="absolute top-20 left-1/4 w-64 h-64 bg-[var(--primary)]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-1/4 w-48 h-48 bg-[var(--info)]/5 rounded-full blur-3xl" />
 
-        <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-20 lg:py-28 text-center">
+        {/* Content */}
+        <div className="relative max-w-[1400px] mx-auto px-4 py-16 sm:py-20 lg:py-28 text-center">
           <motion.span
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -115,7 +135,8 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[var(--text-secondary)] text-base sm:text-lg max-w-2xl mx-auto mb-8 px-4"
           >
-            Le catalogue qui réunit les dernières innovations. Comparez, achetez neuf ou vendez vos appareils d'occasion avec vérification vidéo obligatoire.
+            Le catalogue qui réunit les dernières innovations. Comparez, achetez neuf ou
+            vendez vos appareils d'occasion avec vérification vidéo obligatoire.
           </motion.p>
 
           <motion.div
@@ -139,94 +160,91 @@ const Home = () => {
           </motion.div>
         </div>
 
+        {/* Hero image — left */}
+        <motion.img
+          src="../../public/images/phone.png"
+          alt="Smartphone"
+          initial={{ opacity: 0, x: -80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="absolute left-4 lg:left-16 top-1/2 -translate-y-1/2 w-36 lg:w-56 xl:w-86 rotate-[-8deg] hidden md:block drop-shadow-2xl pointer-events-none"
+        />
+
+        {/* Hero image — right */}
+        <motion.img
+          src="../../public/images/tablet.png"
+          alt="Tablet"
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="absolute right-4 lg:right-16 top-1/2 -translate-y-1/2 w-36 lg:w-56 xl:w-86 rotate-[8deg] hidden md:block drop-shadow-2xl pointer-events-none"
+        />
+
         {/* Diamond decorations */}
         <motion.div
           initial={{ opacity: 0, rotate: 35 }}
           animate={{ opacity: 1, rotate: 45 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="absolute top-10 right-10 w-24 lg:w-32 h-24 lg:h-32 border border-[var(--primary)]/20 rotate-45 hidden md:block"
+          className="absolute top-10 right-10 w-24 lg:w-32 h-24 lg:h-32 border border-[var(--primary)]/20 hidden lg:block"
         />
         <motion.div
           initial={{ opacity: 0, rotate: 35 }}
           animate={{ opacity: 1, rotate: 45 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="absolute bottom-10 left-10 w-16 lg:w-20 h-16 lg:h-20 border border-[var(--primary)]/10 rotate-45 hidden md:block"
+          className="absolute bottom-10 left-10 w-16 lg:w-20 h-16 lg:h-20 border border-[var(--primary)]/10 hidden lg:block"
         />
       </section>
 
-      {/* ── Stats Bar ── */}
-      <section className="bg-[var(--bg-base)] border-y border-[var(--border)]">
-        <motion.div
-          initial="initial"
-          whileInView="whileInView"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-4 py-6"
-        >
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-            {[
-              { value: stats.total, label: 'Produits', color: 'text-[var(--primary)]' },
-              { value: stats.brands, label: 'Marques', color: 'text-[var(--primary)]' },
-              { value: stats.categories, label: 'Catégories', color: 'text-[var(--primary)]' },
-              { value: '🔒', label: 'Vidéo vérifiée', color: 'text-[var(--success)]', isIcon: true },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="text-center"
-              >
-                <div className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>
-                  {stat.isIcon ? stat.value : stat.value}
-                </div>
-                <div className="text-xs text-[var(--text-muted)] mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── Categories ── */}
-      <section className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
-        <motion.h2
-          {...fadeUp}
-          transition={{ duration: 0.4 }}
-          className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-6 sm:mb-8"
-        >
-          Explorer par catégorie
-        </motion.h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      {/* ══════════════════════════════════════════
+          FLOATING CATEGORIES
+      ══════════════════════════════════════════ */}
+      <section className="max-w-9xl mx-auto -mt-20 px-4 py-12 sm:py-16">
+        <div className="flex items-center justify-center gap-12 sm:gap-20 md:gap-28 lg:gap-36 flex-wrap">
           {categories.map((cat, i) => (
-            <motion.div
-              key={cat.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              <Link
-                to={`/catalogue?category=${cat.name}`}
-                className="block bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 text-center hover:border-[var(--primary)] transition-all duration-300 group hover:shadow-lg hover:shadow-[var(--primary)]/5"
+            <Link key={cat.name} to={`/catalogue?category=${cat.name}`} className="group">
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1, type: 'spring', stiffness: 200 }}
+                className="flex flex-col items-center gap-3"
               >
-                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {cat.icon}
-                </div>
-                <h3 className="text-[var(--text-primary)] font-semibold text-sm sm:text-base group-hover:text-[var(--primary)] transition-colors">
-                  {cat.name}s
-                </h3>
-                <p className="text-xs text-[var(--text-muted)] mt-1 hidden sm:block">
-                  Voir les produits
-                </p>
-              </Link>
-            </motion.div>
+                <motion.div animate={float(i * 0.5, 2.5 + i * 0.3)} className="relative">
+                  {/* Glow */}
+                  <div
+                    className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"
+                    style={{ backgroundColor: cat.color }}
+                  />
+                  {/* Icon */}
+                  <div
+                    className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center text-4xl sm:text-5xl transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      borderColor: `${cat.color}30`,
+                      backgroundColor: `${cat.color}08`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = `${cat.color}60`;
+                      e.currentTarget.style.backgroundColor = `${cat.color}15`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = `${cat.color}30`;
+                      e.currentTarget.style.backgroundColor = `${cat.color}08`;
+                    }}
+                  >
+                    {cat.icon}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* ── Popular Products ── */}
+      {/* ══════════════════════════════════════════
+          POPULAR PRODUCTS
+      ══════════════════════════════════════════ */}
       <section className="bg-[var(--bg-base)] py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-9xl mx-auto px-4">
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.4 }}
@@ -235,10 +253,7 @@ const Home = () => {
             <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
               Produits populaires
             </h2>
-            <Link
-              to="/catalogue"
-              className="text-[var(--primary)] hover:underline text-sm"
-            >
+            <Link to="/catalogue" className="text-[var(--primary)] hover:underline text-sm">
               Voir tout →
             </Link>
           </motion.div>
@@ -258,16 +273,18 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── How it Works (nouveau) ── */}
-      <section className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
+      {/* ══════════════════════════════════════════
+          HOW IT WORKS
+      ══════════════════════════════════════════ */}
+      <section className="max-w-9xl mx-auto -mt-5 px-2 py-12 sm:py-16">
         <motion.h2
           {...fadeUp}
           transition={{ duration: 0.4 }}
-          className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-6 sm:mb-8 text-center"
+          className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-8 sm:mb-10 text-center"
         >
           Comment ça marche ?
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-22">
           {[
             { step: '1', icon: '📹', title: 'Filmez votre produit', desc: 'Enregistrez une vidéo de votre appareil en fonctionnement pour prouver son état.' },
             { step: '2', icon: '🛡️', title: 'Vérification admin', desc: 'Notre équipe vérifie la vidéo et approuve votre annonce avant publication.' },
@@ -279,59 +296,66 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-6 text-center relative group hover:border-[var(--primary)]/30 transition-all"
+              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-6 sm:p-8 text-center relative group hover:border-[var(--primary)]/30 transition-all cursor-pointer"
             >
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-7 h-7 bg-[var(--primary)] rounded-full flex items-center justify-center text-white text-xs font-bold">
                 {item.step}
               </div>
-              <div className="text-3xl sm:text-4xl mb-3 mt-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-4xl sm:text-7xl mb-4 mt-2 group-hover:scale-110 transition-transform duration-300">
                 {item.icon}
               </div>
-              <h3 className="text-[var(--text-primary)] font-semibold mb-2">{item.title}</h3>
-              <p className="text-[var(--text-muted)] text-sm leading-relaxed">{item.desc}</p>
+              <h3 className="text-[var(--text-primary)] font-semibold text-2lx mb-2">{item.title}</h3>
+              <p className="text-[var(--text-muted)] text-xl leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── Brands ── */}
-      <section className="bg-[var(--bg-base)] py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* ══════════════════════════════════════════
+          BRANDS MARQUEE
+      ══════════════════════════════════════════ */}
+      <section className="bg-[var(--bg-base)] py-12 sm:py-16 overflow-hidden">
+        <div className="max-w-9xl mx-auto px-4 mb-8">
           <motion.h2
             {...fadeUp}
             transition={{ duration: 0.4 }}
-            className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-6 sm:mb-8"
+            className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]"
           >
             Nos marques
           </motion.h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
-            {brands.map((brand, i) => (
-              <motion.div
-                key={brand.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
+        </div>
+
+        <div className="relative">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-[var(--bg-base)] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-[var(--bg-base)] to-transparent z-10 pointer-events-none" />
+
+          {/* Scrolling track */}
+          <div
+            className="flex items-center gap-16 sm:gap-24 w-max"
+            style={{ animation: 'marquee 20s linear infinite' }}
+          >
+            {marqueBrands.map((brand, i) => (
+              <Link
+                key={`${brand.name}-${i}`}
+                to={`/catalogue?brand=${brand.name}`}
+                className="shrink-0 group"
               >
-                <Link
-                  to={`/catalogue?brand=${brand.name}`}
-                  className="block bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 text-center hover:border-[var(--primary)] transition-all duration-300 hover:shadow-lg hover:shadow-[var(--primary)]/5"
-                >
-                  <div className="text-[var(--text-primary)] font-semibold text-sm">
-                    {brand.name}
-                  </div>
-                  <div className="text-xs text-[var(--text-muted)] mt-1">
-                    {brand.count} produit{brand.count > 1 ? 's' : ''}
-                  </div>
-                </Link>
-              </motion.div>
+                <img
+                  src={brandLogos[brand.name]}
+                  alt={brand.name}
+                  className="h-10 sm:h-32 w-auto object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
+                />
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA Final ── */}
-      <section className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
+      {/* ══════════════════════════════════════════
+          CTA FINAL
+      ══════════════════════════════════════════ */}
+      <section className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -343,7 +367,8 @@ const Home = () => {
             Prêt à vendre vos appareils ?
           </h2>
           <p className="text-[var(--text-secondary)] mb-6 max-w-xl mx-auto text-sm sm:text-base">
-            Rejoignez la marketplace TechPulse. Filmez votre produit, publiez votre annonce et vendez en toute confiance.
+            Rejoignez la marketplace TechPulse. Filmez votre produit, publiez votre annonce
+            et vendez en toute confiance.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
