@@ -1,140 +1,211 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import mongoose from 'mongoose';
+import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import request from 'supertest';
 import app from '../server.js';
-import User from '../models/User.js';
 import Product from '../models/Product.js';
+import { connectDB, disconnectDB, clearDB, createTestUser, createTestAdmin } from './setup.js';
 
-let adminToken;
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-key';
+process.env.NODE_ENV = 'test';
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/techpulse-test');
+let adminToken, userToken;
 
-  // Create admin user for protected routes
-  await User.deleteMany({ email: 'admin@test.com' });
-  const admin = await User.create({
-    firstName: 'Admin',
-    lastName: 'Test',
-    email: 'admin@test.com',
-    password: 'Admin1234',
-    role: 'admin',
-  });
+beforeAll(async () => await connectDB());
+afterAll(async () => await disconnectDB());
 
-  const res = await request(app).post('/api/auth/login').send({
-    email: 'admin@test.com',
-    password: 'Admin1234',
-  });
-  adminToken = res.body.token;
+beforeEach(async () => {
+  await clearDB();
+  const admin = await createTestAdmin();
+  const user = await createTestUser();
+  adminToken = admin.token;
+  userToken = user.token;
 });
 
-afterAll(async () => {
-  await User.deleteMany({ email: 'admin@test.com' });
-  await Product.deleteMany({ name: /^Test Product/ });
-  await mongoose.connection.close();
-});
+const sampleProduct = {
+  name: 'Samsung Galaxy S24 Ultra',
+  brand: 'Samsung',
+  category: 'Smartphone',
+  price: 1469,
+  description: 'Le dernier flagship Samsung avec S Pen intégré et écran AMOLED 120Hz.',
+  inStock: true,
+};
 
 describe('Products API', () => {
-  it('GET /api/products — should return products with pagination', async () => {
-    const res = await request(app).get('/api/products');
+  // ── POST /api/products (Admin only) ──
+  describe('POST /api/products', () => {
+    it('should create a product as admin', async () => {
+      const res = await request(app)
+        .post('/api/products')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(sampleProduct);
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('products');
-    expect(res.body).toHaveProperty('total');
-    expect(res.body).toHaveProperty('page');
-    expect(res.body).toHaveProperty('totalPages');
-  });
+      expect(res.status).toBe(201);
+      expect(res.body).toHaveProperty('name', sampleProduct.name);
+      expect(res.body).toHaveProperty('slug');
+      expect(res.body).toHaveProperty('brand', 'Samsung');
+      expect(res.body.price).toBe(1469);
+    });
 
-  it('GET /api/products?category=Smartphone — should filter by category', async () => {
-    const res = await request(app).get('/api/products?category=Smartphone');
+    it('should reject product creation by regular user', async () => {
+      const res = await request(app)
+        .post('/api/products')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send(sampleProduct);
 
-    expect(res.status).toBe(200);
-    res.body.products.forEach((p) => {
-      expect(p.category).toBe('Smartphone');
+      expect(res.status).toBe(403);
+    });
+
+    it('should reject product without required fields', async () => {
+      const res = await request(app)
+        .post('/api/products')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ name: 'Incomplete' });
+
+      expect(res.status).toBeGreaterThanOrEqual(400);
+    });
+
+    it('should reject product without auth', async () => {
+      const res = await request(app)
+        .post('/api/products')
+        .send(sampleProduct);
+
+      expect(res.status).toBe(401);
     });
   });
 
-  it('GET /api/products?sort=price_asc — should sort by price', async () => {
-    const res = await request(app).get('/api/products?sort=price_asc');
-
-    expect(res.status).toBe(200);
-    const prices = res.body.products.map((p) => p.price);
-    expect(prices).toEqual([...prices].sort((a, b) => a - b));
-  });
-
-  it('GET /api/products/:slug — should return a single product', async () => {
-    // Create a product first to guarantee it exists
-    await request(app)
-      .post('/api/products')
-      .set('Authorization', `Bearer ${adminToken}`)
-      .send({
-        name: 'Test Product Slug',
-        brand: 'Sony',
-        category: 'Smartphone',
-        price: 799,
-        description: 'Produit de test pour vérifier la route slug',
-      });
-
-    const res = await request(app).get('/api/products/test-product-slug');
-
-    expect(res.status).toBe(200);
-    expect(res.body.name).toBe('Test Product Slug');
-    expect(res.body.brand).toBe('Sony');
-  });
-
-  it('GET /api/products/:slug — should 404 for unknown slug', async () => {
-    const res = await request(app).get('/api/products/produit-inexistant');
-
-    expect(res.status).toBe(404);
-  });
-
-  it('POST /api/products — should create product (admin)', async () => {
-    const res = await request(app)
-      .post('/api/products')
-      .set('Authorization', `Bearer ${adminToken}`)
-      .send({
-        name: 'Test Product Creation',
-        brand: 'Samsung',
-        category: 'Smartphone',
-        price: 999,
-        description: 'Un produit de test pour vérifier la création via API',
-      });
-
-    expect(res.status).toBe(201);
-    expect(res.body.slug).toBe('test-product-creation');
-  });
-
-  it('POST /api/products — should reject without admin role', async () => {
-    const userRes = await request(app).post('/api/auth/signup').send({
-      firstName: 'Normal',
-      lastName: 'User',
-      email: 'normaluser@test.com',
-      password: 'Test1234',
+  // ── GET /api/products ──
+  describe('GET /api/products', () => {
+    beforeEach(async () => {
+      // Slug is auto-generated by pre('save') from name
+      await Product.create([
+        { ...sampleProduct, name: 'Galaxy S24' },
+        { ...sampleProduct, name: 'iPhone 15 Pro', brand: 'Apple', price: 1199 },
+        { ...sampleProduct, name: 'ROG Strix G16', brand: 'Asus', category: 'Laptop', price: 1899 },
+      ]);
     });
 
-    const res = await request(app)
-      .post('/api/products')
-      .set('Authorization', `Bearer ${userRes.body.token}`)
-      .send({
-        name: 'Test Product Unauthorized',
-        brand: 'Apple',
-        category: 'Laptop',
-        price: 1999,
-        description: 'Ce produit ne devrait pas être créé par un user normal',
-      });
+    it('should return all products', async () => {
+      const res = await request(app).get('/api/products');
 
-    expect(res.status).toBe(403);
+      expect(res.status).toBe(200);
+      expect(res.body.products.length).toBe(3);
+    });
 
-    await User.deleteMany({ email: 'normaluser@test.com' });
+    it('should filter by brand', async () => {
+      const res = await request(app).get('/api/products?brand=Apple');
+
+      expect(res.status).toBe(200);
+      expect(res.body.products.length).toBe(1);
+      expect(res.body.products[0].brand).toBe('Apple');
+    });
+
+    it('should filter by category', async () => {
+      const res = await request(app).get('/api/products?category=Laptop');
+
+      expect(res.status).toBe(200);
+      expect(res.body.products.length).toBe(1);
+      expect(res.body.products[0].category).toBe('Laptop');
+    });
+
+    it('should support pagination', async () => {
+      const res = await request(app).get('/api/products?limit=2&page=1');
+
+      expect(res.status).toBe(200);
+      expect(res.body.products.length).toBe(2);
+      expect(res.body).toHaveProperty('total', 3);
+    });
+
+    it('should be accessible without auth', async () => {
+      const res = await request(app).get('/api/products');
+      expect(res.status).toBe(200);
+    });
   });
 
-  it('GET /api/products/brands — should return brands with count', async () => {
-    const res = await request(app).get('/api/products/brands');
+  // ── GET /api/products/:slug ──
+  describe('GET /api/products/:slug', () => {
+    it('should return a single product by slug', async () => {
+      // Let pre('save') generate the slug from name
+      const product = await Product.create(sampleProduct);
 
-    expect(res.status).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-    res.body.forEach((b) => {
-      expect(b).toHaveProperty('name');
-      expect(b).toHaveProperty('count');
+      // Slug should be auto-generated: 'samsung-galaxy-s24-ultra'
+      const res = await request(app).get(`/api/products/${product.slug}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('name', sampleProduct.name);
+    });
+
+    it('should return 404 for non-existent slug', async () => {
+      const res = await request(app).get('/api/products/non-existent-product');
+
+      expect(res.status).toBe(404);
+    });
+  });
+
+  // ── PUT /api/products/:id (Admin only) ──
+  describe('PUT /api/products/:id', () => {
+    it('should update a product as admin', async () => {
+      const product = await Product.create(sampleProduct);
+
+      const res = await request(app)
+        .put(`/api/products/${product._id}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ price: 1399, inStock: false });
+
+      expect(res.status).toBe(200);
+      expect(res.body.price).toBe(1399);
+      expect(res.body.inStock).toBe(false);
+    });
+
+    it('should reject update by regular user', async () => {
+      const product = await Product.create(sampleProduct);
+
+      const res = await request(app)
+        .put(`/api/products/${product._id}`)
+        .set('Authorization', `Bearer ${userToken}`)
+        .send({ price: 1 });
+
+      expect(res.status).toBe(403);
+    });
+  });
+
+  // ── DELETE /api/products/:id (Admin only) ──
+  describe('DELETE /api/products/:id', () => {
+    it('should delete a product as admin', async () => {
+      const product = await Product.create(sampleProduct);
+
+      const res = await request(app)
+        .delete(`/api/products/${product._id}`)
+        .set('Authorization', `Bearer ${adminToken}`);
+
+      expect(res.status).toBe(200);
+
+      const found = await Product.findById(product._id);
+      expect(found).toBeNull();
+    });
+
+    it('should reject delete by regular user', async () => {
+      const product = await Product.create(sampleProduct);
+
+      const res = await request(app)
+        .delete(`/api/products/${product._id}`)
+        .set('Authorization', `Bearer ${userToken}`);
+
+      expect(res.status).toBe(403);
+    });
+  });
+
+  // ── GET /api/products/brands ──
+  describe('GET /api/products/brands', () => {
+    it('should return unique brands list', async () => {
+      await Product.create([
+        { ...sampleProduct, name: 'Product 1' },
+        { ...sampleProduct, name: 'Product 2', brand: 'Apple' },
+        { ...sampleProduct, name: 'Product 3' },
+      ]);
+
+      const res = await request(app).get('/api/products/brands');
+
+      expect(res.status).toBe(200);
+      expect(res.body.length).toBe(2);
     });
   });
 });

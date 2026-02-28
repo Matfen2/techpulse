@@ -1,80 +1,157 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import mongoose from 'mongoose';
+import { describe, it, expect, beforeAll, afterAll, afterEach, beforeEach } from 'vitest';
 import request from 'supertest';
 import app from '../server.js';
-import User from '../models/User.js';
+import { connectDB, disconnectDB, clearDB, createTestUser } from './setup.js';
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/techpulse-test');
-  await User.deleteMany({ email: 'test@auth.com' });
-});
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-key';
+process.env.NODE_ENV = 'test';
 
-afterAll(async () => {
-  await User.deleteMany({ email: 'test@auth.com' });
-  await mongoose.connection.close();
-});
-
-let token;
+beforeAll(async () => await connectDB());
+afterEach(async () => await clearDB());
+afterAll(async () => await disconnectDB());
 
 describe('Auth API', () => {
-  it('POST /api/auth/signup — should create a new user', async () => {
-    const res = await request(app).post('/api/auth/signup').send({
-      firstName: 'Test',
-      lastName: 'User',
-      email: 'test@auth.com',
-      password: 'Test1234',
+  // ── POST /api/auth/signup ──
+  describe('POST /api/auth/signup', () => {
+    const validUser = {
+      firstName: 'Mathieu',
+      lastName: 'Fenouil',
+      email: 'mathieu@techpulse.com',
+      password: 'Password123!',
+    };
+
+    it('should register a new user and return token', async () => {
+      const res = await request(app)
+        .post('/api/auth/signup')
+        .send(validUser);
+
+      expect(res.status).toBe(201);
+      expect(res.body).toHaveProperty('token');
+      expect(res.body.user).toHaveProperty('email', validUser.email);
+      expect(res.body.user).toHaveProperty('firstName', validUser.firstName);
+      expect(res.body.user).not.toHaveProperty('password');
     });
 
-    expect(res.status).toBe(201);
-    expect(res.body).toHaveProperty('token');
-    expect(res.body.user.email).toBe('test@auth.com');
-    expect(res.body.user.role).toBe('user');
-    token = res.body.token;
-  });
+    it('should reject duplicate email', async () => {
+      await request(app).post('/api/auth/signup').send(validUser);
 
-  it('POST /api/auth/signup — should reject duplicate email', async () => {
-    const res = await request(app).post('/api/auth/signup').send({
-      firstName: 'Test',
-      lastName: 'Duplicate',
-      email: 'test@auth.com',
-      password: 'Test1234',
+      const res = await request(app)
+        .post('/api/auth/signup')
+        .send(validUser);
+
+      expect(res.status).toBe(409);
     });
 
-    expect(res.status).toBe(409);
-  });
+    it('should reject missing fields', async () => {
+      const res = await request(app)
+        .post('/api/auth/signup')
+        .send({ email: 'test@test.com' });
 
-  it('POST /api/auth/login — should login with valid credentials', async () => {
-    const res = await request(app).post('/api/auth/login').send({
-      email: 'test@auth.com',
-      password: 'Test1234',
+      expect(res.status).toBeGreaterThanOrEqual(400);
     });
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('token');
-    expect(res.body.user.firstName).toBe('Test');
-  });
+    it('should reject invalid email format', async () => {
+      const res = await request(app)
+        .post('/api/auth/signup')
+        .send({ ...validUser, email: 'not-an-email' });
 
-  it('POST /api/auth/login — should reject wrong password', async () => {
-    const res = await request(app).post('/api/auth/login').send({
-      email: 'test@auth.com',
-      password: 'WrongPass1',
+      expect(res.status).toBeGreaterThanOrEqual(400);
     });
 
-    expect(res.status).toBe(401);
+    it('should set default role to user', async () => {
+      const res = await request(app)
+        .post('/api/auth/signup')
+        .send(validUser);
+
+      expect(res.body.user.role).toBe('user');
+    });
   });
 
-  it('GET /api/auth/me — should return user with valid token', async () => {
-    const res = await request(app)
-      .get('/api/auth/me')
-      .set('Authorization', `Bearer ${token}`);
+  // ── POST /api/auth/login ──
+  describe('POST /api/auth/login', () => {
+    beforeEach(async () => {
+      await request(app).post('/api/auth/signup').send({
+        firstName: 'Mathieu',
+        lastName: 'Fenouil',
+        email: 'mathieu@techpulse.com',
+        password: 'Password123!',
+      });
+    });
 
-    expect(res.status).toBe(200);
-    expect(res.body.email).toBe('test@auth.com');
+    it('should login with valid credentials', async () => {
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: 'mathieu@techpulse.com', password: 'Password123!' });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('token');
+      expect(res.body.user).toHaveProperty('email', 'mathieu@techpulse.com');
+    });
+
+    it('should reject wrong password', async () => {
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: 'mathieu@techpulse.com', password: 'WrongPass!' });
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should reject non-existent email', async () => {
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: 'nobody@techpulse.com', password: 'Password123!' });
+
+      expect(res.status).toBeGreaterThanOrEqual(400);
+    });
   });
 
-  it('GET /api/auth/me — should reject without token', async () => {
-    const res = await request(app).get('/api/auth/me');
+  // ── GET /api/auth/me ──
+  describe('GET /api/auth/me', () => {
+    it('should return current user profile', async () => {
+      const { token } = await createTestUser({ email: 'me@techpulse.com' });
 
-    expect(res.status).toBe(401);
+      const res = await request(app)
+        .get('/api/auth/me')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('email', 'me@techpulse.com');
+    });
+
+    it('should reject request without token', async () => {
+      const res = await request(app).get('/api/auth/me');
+      expect(res.status).toBe(401);
+    });
+
+    it('should reject invalid token', async () => {
+      const res = await request(app)
+        .get('/api/auth/me')
+        .set('Authorization', 'Bearer invalid-token-here');
+
+      expect(res.status).toBe(401);
+    });
+  });
+
+  // ── PUT /api/auth/me ──
+  describe('PUT /api/auth/me', () => {
+    it('should update user profile', async () => {
+      const { token } = await createTestUser();
+
+      const res = await request(app)
+        .put('/api/auth/me')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ firstName: 'Updated', lastName: 'Name' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.firstName).toBe('Updated');
+    });
+
+    it('should reject update without auth', async () => {
+      const res = await request(app)
+        .put('/api/auth/me')
+        .send({ firstName: 'Hacker' });
+
+      expect(res.status).toBe(401);
+    });
   });
 });
