@@ -19,9 +19,9 @@ export const deleteReview = (id) => API.delete(`/reviews/${id}`);
 export const getMyReviews = () => API.get('/reviews/user/me');
 
 // ── Admin CRUD ──
-export const createProduct = (data) => api.post('/products', data);
-export const updateProduct = (id, data) => api.put(`/products/${id}`, data);
-export const deleteProduct = (id) => api.delete(`/products/${id}`);
+export const createProduct = (data) => API.post('/products', data);
+export const updateProduct = (id, data) => API.put(`/products/${id}`, data);
+export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
 // Favorites
 export const getFavorites = () => API.get('/favorites');
