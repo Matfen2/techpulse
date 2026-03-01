@@ -18,6 +18,11 @@ export const updateReview = (id, data) => API.put(`/reviews/${id}`, data);
 export const deleteReview = (id) => API.delete(`/reviews/${id}`);
 export const getMyReviews = () => API.get('/reviews/user/me');
 
+// ── Admin CRUD ──
+export const createProduct = (data) => api.post('/products', data);
+export const updateProduct = (id, data) => api.put(`/products/${id}`, data);
+export const deleteProduct = (id) => api.delete(`/products/${id}`);
+
 // Favorites
 export const getFavorites = () => API.get('/favorites');
 export const addFavorite = (productId) => API.post(`/favorites/${productId}`);

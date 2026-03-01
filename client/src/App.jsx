@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import Marketplace from './pages/Marketplace';
+import AdminProducts from './pages/AdminProducts';
 import CreateListing from './pages/CreateListing';
 import ListingDetail from './pages/ListingDetail';
 import PrivateRoute from './components/PrivateRoute';
@@ -46,6 +47,7 @@ function App() {
                   <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
                   <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
                   <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                  <Route path="/admin/products" element={<PrivateRoute adminOnly><AdminProducts /></PrivateRoute>} />
                   <Route path="/admin" element={<PrivateRoute adminOnly><AdminDashboard /></PrivateRoute>} />
                   <Route path="/admin/listings" element={<PrivateRoute adminOnly><AdminListings /></PrivateRoute>} />
                   <Route path="/admin/users" element={<PrivateRoute adminOnly><AdminUsers /></PrivateRoute>} />
