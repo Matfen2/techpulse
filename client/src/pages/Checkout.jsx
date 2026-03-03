@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const Checkout = () => {
-  const navigate = useNavigate();
   const { cartItems, subtotal, buyerProtection, serviceFee, total, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState('form'); // form | success

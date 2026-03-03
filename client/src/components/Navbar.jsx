@@ -11,11 +11,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
-
   // Track scroll for shadow
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
