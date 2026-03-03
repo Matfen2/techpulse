@@ -1,0 +1,46 @@
+# ═══════════════════════════════════════════════
+# TechPulse Server — Production Multi-Stage Build
+# ═══════════════════════════════════════════════
+
+# ── Stage 1: Install deps ──
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+COPY server/package*.json ./
+
+# Install production dependencies only
+RUN npm ci --only=production
+
+# ── Stage 2: Production ──
+FROM node:20-alpine AS production
+
+# Security: non-root user
+RUN addgroup -g 1001 -S techpulse && \
+    adduser -S techpulse -u 1001
+
+WORKDIR /app
+
+# Copy production deps from stage 1
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package*.json ./
+
+# Copy server source
+COPY server/ .
+
+# Create uploads directory
+RUN mkdir -p uploads/images uploads/videos && \
+    chown -R techpulse:techpulse /app
+
+# Switch to non-root user
+USER techpulse
+
+# Expose port
+EXPOSE 5000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:5000/api/health || exit 1
+
+# Start
+CMD ["node", "server.js"]
