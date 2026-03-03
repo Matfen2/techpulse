@@ -11,14 +11,12 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Track scroll for shadow
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -34,11 +32,11 @@ const Navbar = () => {
         <div className="max-w-8xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" className="text-xl sm:text-2xl font-bold text-[var(--orange)] shrink-0">
+          <Link to="/" className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--orange)] shrink-0 font-qaranta">
             TechPulse
           </Link>
 
-          {/* ── Desktop nav ── */}
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
             {[
               { to: '/catalogue', label: 'Catalogue' },
@@ -47,7 +45,7 @@ const Navbar = () => {
               <Link
                 key={to}
                 to={to}
-                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`relative px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-colors font-qaranta ${
                   isActive(to)
                     ? 'text-[var(--orange)]'
                     : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-deep)]'
@@ -65,8 +63,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* ── Desktop right ── */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop right */}
+          <div className="hidden md:flex items-center gap-1 lg:gap-2">
             {isAuthenticated ? (
               <>
                 <Link to="/cart" className="relative p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-deep)] transition-colors">
@@ -79,7 +77,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/dashboard"
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors font-qaranta ${
                     isActive('/dashboard') ? 'text-[var(--orange)]' : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-deep)]'
                   }`}
                 >
@@ -88,7 +86,7 @@ const Navbar = () => {
                 {user?.role === 'admin' && (
                   <Link
                     to="/admin"
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors font-qaranta ${
                       isActive('/admin') ? 'text-[var(--orange)]' : 'text-[var(--orange)]/70 hover:text-[var(--orange)] hover:bg-[var(--orange)]/5'
                     }`}
                   >
@@ -97,24 +95,24 @@ const Navbar = () => {
                 )}
                 <button
                   onClick={logout}
-                  className="px-3 py-1.5 text-sm border border-[var(--border)] rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)] transition-colors cursor-pointer ml-1"
+                  className="px-3 py-1.5 text-sm border border-[var(--border)] rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)] transition-colors cursor-pointer ml-1 font-qaranta"
                 >
                   Déconnexion
                 </button>
               </>
             ) : (
               <div className="flex items-center gap-2">
-                <Link to="/login" className="px-4 py-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors rounded-lg hover:bg-[var(--bg-deep)]">
+                <Link to="/login" className="px-4 py-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors rounded-lg hover:bg-[var(--bg-deep)] font-qaranta">
                   Connexion
                 </Link>
-                <Link to="/signup" className="px-4 py-2 text-sm bg-[var(--orange)] hover:opacity-90 text-white rounded-lg transition-opacity font-medium">
+                <Link to="/signup" className="px-4 py-2 text-sm bg-[var(--orange)] hover:opacity-90 text-white rounded-lg transition-opacity font-medium font-qaranta">
                   S'inscrire
                 </Link>
               </div>
             )}
           </div>
 
-          {/* ── Mobile right ── */}
+          {/* Mobile right */}
           <div className="flex md:hidden items-center gap-2">
             {isAuthenticated && (
               <Link to="/cart" className="relative p-2 text-[var(--text-muted)]">
@@ -132,34 +130,19 @@ const Navbar = () => {
               aria-label="Menu"
             >
               <div className="w-5 flex flex-col gap-1">
-                <motion.span
-                  animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="block h-0.5 w-5 bg-current rounded-full origin-center"
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                  className="block h-0.5 w-5 bg-current rounded-full"
-                  transition={{ duration: 0.15 }}
-                />
-                <motion.span
-                  animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="block h-0.5 w-5 bg-current rounded-full origin-center"
-                  transition={{ duration: 0.2 }}
-                />
+                <motion.span animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} className="block h-0.5 w-5 bg-current rounded-full origin-center" transition={{ duration: 0.2 }} />
+                <motion.span animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} className="block h-0.5 w-5 bg-current rounded-full" transition={{ duration: 0.15 }} />
+                <motion.span animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }} className="block h-0.5 w-5 bg-current rounded-full origin-center" transition={{ duration: 0.2 }} />
               </div>
             </button>
           </div>
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════════ */}
-      {/* ── Mobile fullscreen drawer ── */}
-      {/* ══════════════════════════════════════════ */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -168,7 +151,6 @@ const Navbar = () => {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
             />
 
-            {/* Drawer */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -178,13 +160,8 @@ const Navbar = () => {
             >
               {/* Header */}
               <div className="h-14 flex items-center justify-between px-5 border-b border-[var(--border)]">
-                <span className="text-[var(--orange)] font-bold text-lg">Menu</span>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="p-1 text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-                >
-                  ✕
-                </button>
+                <span className="text-[var(--orange)] font-bold text-lg font-qaranta">Menu</span>
+                <button onClick={() => setMobileOpen(false)} className="p-1 text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer">✕</button>
               </div>
 
               {/* Nav links */}
@@ -202,7 +179,8 @@ const Navbar = () => {
                   >
                     <Link
                       to={to}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      onClick={() => setMobileOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all font-qaranta ${
                         isActive(to)
                           ? 'bg-[var(--orange)]/10 text-[var(--orange)] border border-[var(--orange)]/30'
                           : 'text-[var(--text-muted)] hover:bg-[var(--bg-deep)] hover:text-[var(--text)]'
@@ -220,7 +198,8 @@ const Navbar = () => {
                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                       <Link
                         to="/dashboard"
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                        onClick={() => setMobileOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all font-qaranta ${
                           isActive('/dashboard')
                             ? 'bg-[var(--orange)]/10 text-[var(--orange)] border border-[var(--orange)]/30'
                             : 'text-[var(--text-muted)] hover:bg-[var(--bg-deep)] hover:text-[var(--text)]'
@@ -235,10 +214,11 @@ const Navbar = () => {
                       <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.24 }}>
                         <Link
                           to="/admin"
-                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[var(--orange)]/70 hover:text-[var(--orange)] hover:bg-[var(--orange)]/5 transition-all"
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[var(--orange)]/70 hover:text-[var(--orange)] hover:bg-[var(--orange)]/5 transition-all font-qaranta"
                         >
                           <span>🔧</span>
-                          Administration
+                          Admin
                         </Link>
                       </motion.div>
                     )}
@@ -254,7 +234,7 @@ const Navbar = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                     onClick={() => { logout(); setMobileOpen(false); }}
-                    className="w-full px-4 py-2.5 rounded-xl text-sm font-medium border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer text-center"
+                    className="w-full px-4 py-2.5 rounded-xl text-sm font-medium border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer text-center font-qaranta"
                   >
                     🚪 Déconnexion
                   </motion.button>
@@ -262,13 +242,15 @@ const Navbar = () => {
                   <div className="space-y-2">
                     <Link
                       to="/login"
-                      className="block w-full px-4 py-2.5 rounded-xl text-sm font-medium border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)] transition-colors text-center"
+                      onClick={() => setMobileOpen(false)}
+                      className="block w-full px-4 py-2.5 rounded-xl text-sm font-medium border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)] transition-colors text-center font-qaranta"
                     >
                       Connexion
                     </Link>
                     <Link
                       to="/signup"
-                      className="block w-full px-4 py-2.5 rounded-xl text-sm font-medium bg-[var(--orange)] text-white hover:opacity-90 transition-opacity text-center"
+                      onClick={() => setMobileOpen(false)}
+                      className="block w-full px-4 py-2.5 rounded-xl text-sm font-medium bg-[var(--orange)] text-white hover:opacity-90 transition-opacity text-center font-qaranta"
                     >
                       S'inscrire
                     </Link>

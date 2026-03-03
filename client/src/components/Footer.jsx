@@ -1,15 +1,12 @@
-import { Link } from 'react-router-dom';
-
 const Footer = () => {
   return (
     <footer className="bg-[var(--bg-base)] border-t border-[var(--border)] mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-10 sm:py-6">
-        {/* Bottom bar */}
-        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-lg text-[var(--text-muted)]">
+      <div className="max-w-8xl mx-auto px-4 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] font-request">
             © 2026 TechPulse — Mathieu Fenouil
           </p>
-          <p className="text-lg text-[var(--text-muted)]">
+          <p className="text-[10px] text-center sm:text-xs text-[var(--text-muted)]/60 font-request">
             Projet portfolio Full-Stack · React · Express · MongoDB · Docker
           </p>
         </div>

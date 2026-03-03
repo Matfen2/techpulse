@@ -4,6 +4,8 @@
 :root {
   --primary: #F97316;
   --primary-hover: #EA580C;
+  --orange: #F97316;
+  --text: #F8FAFC;
   --bg-deep: #020617;
   --bg-base: #0F172A;
   --bg-card: #1E293B;
@@ -17,6 +19,8 @@
   --info: #3B82F6;
   --purple: #A855F7;
   --teal: #14B8A6;
+  --request: Request;
+  --personal: PersonalUseOnly;
 }
 
 body {
@@ -29,4 +33,26 @@ body {
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* FONTS */
+@font-face {
+  font-family: Request;
+  src: url("../../public/fonts/Request Personal Use Only.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Qaranta;
+  src: url("../../public/fonts/Qaranta Bold.otf") format("opentype");
+}
+
+/* ── Font utility classes ── */
+.font-request {
+  font-family: 'Request', 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-qaranta {
+  font-family: 'Qaranta', 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
 }
