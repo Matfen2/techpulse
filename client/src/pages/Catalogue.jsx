@@ -144,7 +144,7 @@ const FilterContent = ({ filters, setFilter, clearFilters, hasActiveFilters }) =
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={clearFilters}
-        className="w-full py-2.5 text-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer"
+        className="w-full py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer"
       >
         ✕ Réinitialiser les filtres
       </motion.button>
@@ -218,7 +218,7 @@ const Catalogue = () => {
   const activeFilterCount = [filters.category, filters.brand, filters.search, filters.minPrice, filters.maxPrice].filter(Boolean).length;
 
   return (
-    <div className="max-w-9xl mx-auto px-4 py-6 sm:py-8">
+    <div className="max-w-8xl mx-auto px-4 py-6 sm:py-8">
 
       {/* ── Header ── */}
       <motion.div
@@ -233,7 +233,7 @@ const Catalogue = () => {
       </motion.div>
 
       {/* ── Mobile: Filter button + Sort ── */}
-      <div className="flex items-center gap-3 md:hidden">
+      <div className="flex items-center gap-3 mb-4 md:hidden">
         <button
           onClick={() => setMobileFilters(true)}
           className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] rounded-lg text-sm text-[var(--text-muted)] hover:border-[var(--orange)] transition-colors relative"
@@ -273,8 +273,7 @@ const Catalogue = () => {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              style={{ borderBottomRightRadius: "20px"}}
-              className="fixed inset-y-0 left-0 z-50 w-80 h-[60vh] max-w-[85vw] bg-[var(--bg-card)] border-r border-[var(--border)] overflow-y-auto md:hidden"
+              className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] bg-[var(--bg-card)] border-r border-[var(--border)] overflow-y-auto md:hidden"
             >
               <div className="flex items-center justify-between p-4 border-b border-[var(--border)]">
                 <h2 className="font-bold text-[var(--text)]">Filtres</h2>
@@ -297,7 +296,7 @@ const Catalogue = () => {
               <div className="p-4 border-t border-[var(--border)]">
                 <button
                   onClick={() => setMobileFilters(false)}
-                  className="w-full py-3 bg-[var(--orange)] text-white text-xl rounded-lg font-medium hover:opacity-90 transition-opacity"
+                  className="w-full py-3 bg-[var(--orange)] text-white rounded-lg font-medium text-sm hover:opacity-90 transition-opacity"
                 >
                   Voir les {total} résultats
                 </button>
@@ -310,7 +309,7 @@ const Catalogue = () => {
       <div className="flex gap-8">
 
         {/* ── Desktop Sidebar ── */}
-        <aside className="w-64 h-full shrink-0 hidden md:block">
+        <aside className="w-64 shrink-0 hidden md:block">
           <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-5 sticky top-24">
             <FilterContent
               filters={filters}
@@ -325,7 +324,7 @@ const Catalogue = () => {
         <div className="flex-1 min-w-0">
 
           {/* Desktop Sort Bar */}
-          <div className="hidden md:flex items-center justify-between -mt-20">
+          <div className="hidden md:flex items-center -mt-20 justify-between mb-6">
             <div className="flex items-center gap-2 flex-wrap">
               <AnimatePresence>
                 {filters.category && (
@@ -388,11 +387,11 @@ const Catalogue = () => {
               className="text-center py-16 sm:py-20"
             >
               <div className="text-5xl mb-4">🔍</div>
-              <p className="text-[var(--text-muted)] text-2xl mb-1">Aucun produit trouvé</p>
-              <p className="text-xl text-[var(--text-muted)]/50 mb-4">Essayez avec d'autres filtres</p>
+              <p className="text-[var(--text-muted)] mb-1">Aucun produit trouvé</p>
+              <p className="text-xs text-[var(--text-muted)]/50 mb-4">Essayez avec d'autres filtres</p>
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 text-[var(--orange)] hover:bg-[var(--orange)]/10 rounded-lg hover:scale-110 text-lg cursor-pointer transition-all"
+                className="px-4 py-2 text-[var(--orange)] hover:bg-[var(--orange)]/10 rounded-lg text-sm cursor-pointer transition-colors"
               >
                 Réinitialiser les filtres
               </button>
