@@ -96,7 +96,7 @@
 
 ### Modèles de données
 
-- **User** — Authentification, rôles (user/admin), profil vendeur
+- **User** - Authentification, rôles (user/admin), profil vendeur
 - **Product** - Catalogue (admin), specs JSON, notes agrégées
 - **Listing** - Annonces marketplace, images[], vidéo, workflow statut
 - **Review** - Avis utilisateurs, note 1-5, lié à Product + User
