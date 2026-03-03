@@ -5,13 +5,6 @@ import { getProducts, getBrands } from '../services/productService';
 import ProductCard from '../components/ProductCard';
 
 /* ── Constants ── */
-const categories = [
-  { name: 'Smartphone', icon: '📱', color: 'var(--orange)' },
-  { name: 'Laptop', icon: '💻', color: 'var(--info)' },
-  { name: 'Wearable', icon: '⌚', color: '#14b8a6' },
-  { name: 'Accessoire', icon: '🎧', color: '#a855f7' },
-];
-
 const brandLogos = {
   Samsung: '/images/samsung-logo.png',
   Apple: '/images/apple-logo.jpg',
@@ -27,16 +20,6 @@ const fadeUp = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-50px' },
 };
-
-const float = (delay = 0, duration = 3) => ({
-  y: [0, -12, 0],
-  transition: {
-    duration,
-    repeat: Infinity,
-    ease: 'easeInOut',
-    delay,
-  },
-});
 
 /* ── Skeleton ── */
 const ProductSkeleton = () => (
@@ -57,7 +40,6 @@ const ProductSkeleton = () => (
 const Home = () => {
   const [popularProducts, setPopularProducts] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [stats, setStats] = useState({ total: 0, brands: 0, categories: 4 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,11 +51,6 @@ const Home = () => {
         ]);
         setPopularProducts(productsRes.data.products);
         setBrands(brandsRes.data);
-        setStats({
-          total: productsRes.data.total,
-          brands: brandsRes.data.length,
-          categories: 4,
-        });
       } catch {
         // silent
       } finally {
@@ -184,7 +161,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════
           POPULAR PRODUCTS
       ══════════════════════════════════════════ */}
-      <section className="bg-[var(--bg-base)] py-10 sm:py-16">
+      <section className="bg-[var(--bg-base)] py-10 sm:py-10">
         <div className="max-w-8xl mx-auto px-4">
           <motion.div
             {...fadeUp}
@@ -200,11 +177,11 @@ const Home = () => {
           </motion.div>
 
           {loading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {popularProducts.slice(0, 8).map((product, i) => (
                 <motion.div
                   key={product._id}
@@ -232,21 +209,21 @@ const Home = () => {
         >
           Comment ça marche ?
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-10 -mt-6">
           {[
             { icon: '📹', title: 'Filmez votre produit', desc: 'Enregistrez une vidéo de votre appareil en fonctionnement pour prouver son état.' },
             { icon: '🛡️', title: 'Vérification admin', desc: 'Notre équipe vérifie la vidéo et approuve votre annonce avant publication.' },
             { icon: '🤝', title: 'Achat sécurisé', desc: 'Les acheteurs achètent en confiance grâce à la vérification vidéo obligatoire.' },
           ].map((item, i) => (
             <motion.div
-              key={item.step}
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 -mt-5 sm:p-8 text-center relative group hover:border-[var(--orange)]/30 transition-all"
+              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 sm:p-8 text-center group hover:border-[var(--orange)]/30 transition-all"
             >
-              <div className="text-3xl sm:text-5xl mb-3 sm:mb-4 mt-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-3xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
                 {item.icon}
               </div>
               <h3 className="text-[var(--text)] font-semibold text-sm sm:text-base mb-2">{item.title}</h3>
@@ -260,12 +237,12 @@ const Home = () => {
           BRANDS MARQUEE
       ══════════════════════════════════════════ */}
       {brands.length > 0 && (
-        <section className="bg-[var(--bg-base)] py-10 sm:py-10 overflow-hidden">
+        <section className="bg-[var(--bg-base)] py-10 overflow-hidden">
           <div className="max-w-8xl mx-auto px-4 mb-6 sm:mb-8">
             <motion.h2
               {...fadeUp}
               transition={{ duration: 0.4 }}
-              className="text-lg sm:text-2xl font-bold text-[var(--text)]"
+              className="text-lg sm:text-2xl font-bold -mt-4 text-[var(--text)]"
             >
               Nos marques
             </motion.h2>
@@ -300,13 +277,13 @@ const Home = () => {
       {/* ══════════════════════════════════════════
           CTA FINAL
       ══════════════════════════════════════════ */}
-      <section className="max-w-3xl mx-auto px-4 py-8 sm:py-8">
+      <section className="max-w-3xl mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-br from-[var(--orange)]/10 to-amber-600/5  border-[var(--orange)]/20 rounded-2xl p-6 sm:p-10 lg:p-12 text-center"
+          className="bg-gradient-to-br from-[var(--orange)]/10 to-amber-600/5 border border-[var(--orange)]/20 rounded-2xl p-6 sm:p-10 lg:p-12 text-center"
         >
           <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-[var(--text)] mb-3">
             Prêt à vendre vos appareils ?
