@@ -97,11 +97,11 @@
 ### Modèles de données
 
 - **User** — Authentification, rôles (user/admin), profil vendeur
-- **Product** — Catalogue (admin), specs JSON, notes agrégées
-- **Listing** — Annonces marketplace, images[], vidéo, workflow statut
-- **Review** — Avis utilisateurs, note 1-5, lié à Product + User
-- **Order** — Commandes, items, montants, statut
-- **Favorite** — Favoris utilisateur sur produits catalogue
+- **Product** - Catalogue (admin), specs JSON, notes agrégées
+- **Listing** - Annonces marketplace, images[], vidéo, workflow statut
+- **Review** - Avis utilisateurs, note 1-5, lié à Product + User
+- **Order** - Commandes, items, montants, statut
+- **Favorite** - Favoris utilisateur sur produits catalogue
 
 ---
 
@@ -266,7 +266,7 @@ techpulse/
 
 ## 🧑‍💻 Auteur
 
-**Mathieu Fenouil** — Full-Stack Developer
+**Mathieu Fenouil** - Full-Stack Developer
 
 - LinkedIn : [linkedin.com/in/mathieu-fenouil](https://linkedin.com/in/mathieu-fenouil)
 - GitHub : [github.com/mathieufenouil](https://github.com/mathieufenouil)
