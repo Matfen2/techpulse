@@ -20,7 +20,7 @@ const Particle = ({ delay, x, size }) => (
       scale: [1, 0.3],
     }}
     transition={{
-      duration: 8 + Math.random() * 6,
+      duration: 8 + delay * 2,
       delay,
       repeat: Infinity,
       ease: 'easeOut',
@@ -52,7 +52,7 @@ const NotFound = () => {
             key={i}
             delay={i * 1.2}
             x={10 + i * 11}
-            size={4 + Math.random() * 8}
+            size={4 + (i % 3) * 4}
           />
         ))}
       </div>
