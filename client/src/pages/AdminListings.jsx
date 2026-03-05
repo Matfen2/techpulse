@@ -72,13 +72,13 @@ const AdminListings = () => {
       <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden">
         {/* Header */}
         <div className="p-3 sm:p-4 border-b border-[var(--border)] flex items-center justify-between">
-          <h3 className="font-bold text-[var(--text)] text-xs sm:text-sm">Détail de l'annonce</h3>
+          <h3 className="font-bold text-[var(--text)] text-xs sm:text-sm font-request">Détail de l'annonce</h3>
           <button onClick={() => setSelectedListing(null)} className="p-1 rounded-lg hover:bg-[var(--bg-deep)] text-[var(--text-muted)] transition-colors cursor-pointer">✕</button>
         </div>
 
         {/* Media */}
         <div className="p-3 sm:p-4 border-b border-[var(--border)]">
-          <p className="text-[10px] font-medium text-[var(--text-muted)] mb-2 uppercase tracking-wider">Médias</p>
+          <p className="text-[10px] font-medium text-[var(--text-muted)] mb-2 uppercase tracking-wider font-qaranta">Médias</p>
           {selectedListing.images?.length > 0 ? (
             <div className="grid grid-cols-3 gap-2 mb-3">
               {selectedListing.images.map((img, i) => (
@@ -98,14 +98,14 @@ const AdminListings = () => {
 
         {/* Info */}
         <div className="p-3 sm:p-4 border-b border-[var(--border)] space-y-2">
-          <p className="text-[10px] font-medium text-[var(--text-muted)] uppercase tracking-wider">Informations</p>
-          <h4 className="text-[var(--text)] font-semibold text-sm">{selectedListing.title}</h4>
-          <p className="text-[10px] sm:text-xs text-[var(--text-muted)] leading-relaxed">{selectedListing.description}</p>
+          <p className="text-[10px] font-medium text-[var(--text-muted)] uppercase tracking-wider font-qaranta">Informations</p>
+          <h4 className="text-[var(--text)] font-semibold text-sm font-request">{selectedListing.title}</h4>
+          <p className="text-[10px] sm:text-xs text-[var(--text-muted)] leading-relaxed font-qaranta">{selectedListing.description}</p>
           <div className="grid grid-cols-2 gap-2 pt-1">
-            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)]">Prix</p><p className="text-xs font-mono text-[var(--orange)] font-bold">{selectedListing.price}€</p></div>
-            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)]">État</p><p className={`text-xs font-medium ${CONDITION_COLORS[selectedListing.condition]}`}>{selectedListing.condition}</p></div>
-            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)]">Catégorie</p><p className="text-xs text-[var(--text)]">{CATEGORY_ICONS[selectedListing.category]} {selectedListing.category}</p></div>
-            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)]">Vendeur</p><p className="text-xs text-[var(--text)]">{selectedListing.seller?.firstName} {selectedListing.seller?.lastName}</p></div>
+            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)] font-qaranta">Prix</p><p className="text-xs font-mono text-[var(--orange)] font-bold font-qaranta">{selectedListing.price}€</p></div>
+            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)] font-qaranta">État</p><p className={`text-xs font-medium ${CONDITION_COLORS[selectedListing.condition]}`}>{selectedListing.condition}</p></div>
+            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)] font-qaranta">Catégorie</p><p className="text-xs text-[var(--text)] font-qaranta">{CATEGORY_ICONS[selectedListing.category]} {selectedListing.category}</p></div>
+            <div className="bg-[var(--bg-deep)] rounded-xl p-2"><p className="text-[10px] text-[var(--text-muted)] font-qaranta">Vendeur</p><p className="text-xs text-[var(--text)]">{selectedListing.seller?.firstName} {selectedListing.seller?.lastName}</p></div>
           </div>
           {selectedListing.location && <p className="text-[10px] text-[var(--text-muted)]">📍 {selectedListing.location}</p>}
         </div>
@@ -113,7 +113,7 @@ const AdminListings = () => {
         {/* Checklist */}
         {selectedListing.status === 'pending' && (
           <div className="p-3 sm:p-4 border-b border-[var(--border)]">
-            <p className="text-[10px] font-medium text-[var(--text-muted)] mb-2 uppercase tracking-wider">Checklist de vérification</p>
+            <p className="text-[10px] font-medium text-[var(--text-muted)] mb-2 uppercase tracking-wider font-qaranta">Checklist de vérification</p>
             <div className="space-y-1.5">
               {[
                 { key: 'photos', label: 'Photos conformes' },
@@ -123,7 +123,7 @@ const AdminListings = () => {
               ].map(({ key, label }) => (
                 <label key={key} className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-[var(--bg-deep)] transition-colors cursor-pointer">
                   <input type="checkbox" checked={checklist[key] || false} onChange={(e) => setChecklist({ ...checklist, [key]: e.target.checked })} className="w-4 h-4 rounded accent-[var(--orange)]" />
-                  <span className={`text-xs transition-colors ${checklist[key] ? 'text-[var(--text)]' : 'text-[var(--text-muted)]'}`}>{label}</span>
+                  <span className={`text-xs transition-colors font-qaranta ${checklist[key] ? 'text-[var(--text)]' : 'text-[var(--text-muted)]'}`}>{label}</span>
                 </label>
               ))}
             </div>
@@ -135,11 +135,11 @@ const AdminListings = () => {
         <div className="p-3 sm:p-4">
           {selectedListing.status === 'pending' ? (
             <div className="flex gap-2">
-              <button onClick={() => handleVerify(selectedListing._id, 'rejected')} disabled={verifying} className="flex-1 px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 font-medium text-xs hover:bg-red-500/20 transition-colors disabled:opacity-50 cursor-pointer">✗ Rejeter</button>
-              <button onClick={() => handleVerify(selectedListing._id, 'active')} disabled={verifying || !allChecked} className="flex-1 px-3 py-2.5 rounded-xl bg-emerald-500 text-white font-medium text-xs hover:bg-emerald-600 transition-colors disabled:opacity-50 cursor-pointer" title={!allChecked ? 'Complétez la checklist' : ''}>{verifying ? '...' : '✓ Approuver'}</button>
+              <button onClick={() => handleVerify(selectedListing._id, 'rejected')} disabled={verifying} className="flex-1 px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 font-medium text-xs font-qaranta hover:bg-red-500/20 transition-colors disabled:opacity-50 cursor-pointer">✗ Rejeter</button>
+              <button onClick={() => handleVerify(selectedListing._id, 'active')} disabled={verifying || !allChecked} className="flex-1 px-3 py-2.5 rounded-xl bg-emerald-500 text-white font-medium text-xs font-qaranta hover:bg-emerald-600 transition-colors disabled:opacity-50 cursor-pointer" title={!allChecked ? 'Complétez la checklist' : ''}>{verifying ? '...' : '✓ Approuver'}</button>
             </div>
           ) : selectedListing.status === 'rejected' ? (
-            <button onClick={() => handleVerify(selectedListing._id, 'active')} disabled={verifying} className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-deep)] border border-[var(--border)] text-[var(--text-muted)] font-medium text-xs hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors disabled:opacity-50 cursor-pointer">Réactiver</button>
+            <button onClick={() => handleVerify(selectedListing._id, 'active')} disabled={verifying} className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-deep)] border border-[var(--border)] text-[var(--text-muted)] font-medium text-xs font-qaranta hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors disabled:opacity-50 cursor-pointer">Réactiver</button>
           ) : selectedListing.status === 'active' ? (
             <div className="text-center py-2"><span className="text-emerald-400 text-xs font-medium">✓ Annonce vérifiée et active</span></div>
           ) : (
@@ -157,10 +157,10 @@ const AdminListings = () => {
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex items-center gap-3 mb-1.5">
-            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">Modération des annonces</h1>
-            {counts.pending > 0 && <span className="px-2.5 py-1 rounded-full bg-amber-500 text-white text-[10px] sm:text-xs font-bold animate-pulse">{counts.pending} en attente</span>}
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">Modération des annonces</h1>
+            {counts.pending > 0 && <span className="px-2.5 py-1 rounded-full bg-amber-500 text-white text-[10px] sm:text-xs font-bold animate-pulse font-qaranta">{counts.pending} en attente</span>}
           </div>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)]">Vérifiez les annonces avant publication</p>
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] font-qaranta">Vérifiez les annonces avant publication</p>
         </div>
 
         {/* Status filter pills */}
@@ -175,7 +175,7 @@ const AdminListings = () => {
             <button
               key={key}
               onClick={() => setFilter(key)}
-              className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
+              className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-1.5 shrink-0 cursor-pointer font-qaranta ${
                 statusFilter === key
                   ? 'bg-[var(--orange)] text-white shadow-lg shadow-[var(--orange)]/25'
                   : 'bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--orange)]'
@@ -227,10 +227,10 @@ const AdminListings = () => {
                       {/* Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5 sm:mb-1 flex-wrap">
-                          <h3 className="text-[var(--text)] font-medium text-xs sm:text-sm truncate">{listing.title}</h3>
+                          <h3 className="text-[var(--text)] font-medium text-xs sm:text-sm truncate font-request">{listing.title}</h3>
                           <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[10px] ${st.bg} ${st.text}`}>{st.icon} {st.label}</span>
                         </div>
-                        <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-[var(--text-muted)] flex-wrap">
+                        <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-[var(--text-muted)] flex-wrap font-qaranta">
                           <span>{CATEGORY_ICONS[listing.category]} {listing.category}</span>
                           <span className={CONDITION_COLORS[listing.condition]}>{listing.condition}</span>
                           <span className="font-mono text-[var(--orange)]">{listing.price}€</span>

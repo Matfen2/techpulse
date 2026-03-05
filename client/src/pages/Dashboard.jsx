@@ -53,10 +53,10 @@ const EmptyState = ({ icon, text, linkTo, linkText }) => (
     className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-10 sm:p-12 text-center"
   >
     <div className="text-4xl sm:text-5xl mb-4">{icon}</div>
-    <p className="text-[var(--text-muted)] mb-4 text-sm">{text}</p>
+    <p className="text-[var(--text-muted)] mb-4 text-sm font-qaranta">{text}</p>
     <Link
       to={linkTo}
-      className="inline-block px-5 py-2.5 bg-[var(--orange)] text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+      className="inline-block px-5 py-2.5 bg-[var(--orange)] text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity font-qaranta"
     >
       {linkText}
     </Link>
@@ -134,11 +134,11 @@ const Dashboard = () => {
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[var(--orange)] to-amber-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3 shadow-lg shadow-[var(--orange)]/20">
                   {user?.firstName?.[0]}{user?.lastName?.[0]}
                 </div>
-                <h3 className="text-[var(--text)] font-bold text-lg">
+                <h3 className="text-[var(--text)] font-bold text-lg font-request">
                   {user?.firstName} {user?.lastName}
                 </h3>
-                <p className="text-[var(--text-muted)] text-sm">{user?.email}</p>
-                <p className="text-[var(--text-muted)] text-xs mt-1">
+                <p className="text-[var(--text-muted)] text-sm font-qaranta">{user?.email}</p>
+                <p className="text-[var(--text-muted)] text-xs mt-1 font-qaranta">
                   Membre depuis {new Date(user?.createdAt).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
                 </p>
               </div>
@@ -151,8 +151,8 @@ const Dashboard = () => {
                   { value: listings.length, label: 'Annonces' },
                 ].map((s) => (
                   <div key={s.label} className="text-center p-2 bg-[var(--bg-deep)] rounded-xl">
-                    <p className="text-base font-bold text-[var(--orange)]">{s.value}</p>
-                    <p className="text-[10px] text-[var(--text-muted)]">{s.label}</p>
+                    <p className="text-base font-bold text-[var(--orange)] font-request">{s.value}</p>
+                    <p className="text-[10px] text-[var(--text-muted)] font-qaranta">{s.label}</p>
                   </div>
                 ))}
               </div>
@@ -163,7 +163,7 @@ const Dashboard = () => {
                   <button
                     key={tab.key}
                     onClick={() => setTab(tab.key)}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer font-qaranta ${
                       activeTab === tab.key
                         ? 'bg-[var(--orange)]/10 text-[var(--orange)] border border-[var(--orange)]/30'
                         : 'text-[var(--text-muted)] hover:bg-[var(--bg-deep)] hover:text-[var(--text)]'
@@ -200,10 +200,10 @@ const Dashboard = () => {
                 {user?.firstName?.[0]}{user?.lastName?.[0]}
               </div>
               <div className="min-w-0">
-                <h3 className="text-[var(--text)] font-bold text-base truncate">
+                <h3 className="text-[var(--text)] font-bold text-base truncate font-request">
                   {user?.firstName} {user?.lastName}
                 </h3>
-                <p className="text-[var(--text-muted)] text-xs truncate">{user?.email}</p>
+                <p className="text-[var(--text-muted)] text-xs truncate font-qaranta">{user?.email}</p>
               </div>
             </motion.div>
 
@@ -213,7 +213,7 @@ const Dashboard = () => {
                 <button
                   key={tab.key}
                   onClick={() => setTab(tab.key)}
-                  className={`flex-1 min-w-0 px-3 py-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  className={`flex-1 min-w-0 px-3 py-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 font-qaranta ${
                     activeTab === tab.key
                       ? 'bg-[var(--orange)] text-white shadow-md shadow-[var(--orange)]/25'
                       : 'text-[var(--text-muted)] hover:text-[var(--text)]'
@@ -249,8 +249,8 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div>
-                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">❤️ Mes Favoris</h1>
-                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1">{favorites.length} produit{favorites.length > 1 ? 's' : ''} sauvegardé{favorites.length > 1 ? 's' : ''}</p>
+                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">❤️ Mes Favoris</h1>
+                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1 font-qaranta">{favorites.length} produit{favorites.length > 1 ? 's' : ''} sauvegardé{favorites.length > 1 ? 's' : ''}</p>
                     </div>
                   </div>
 
@@ -295,11 +295,11 @@ const Dashboard = () => {
                           </div>
                           <div className="p-3 sm:p-4">
                             <Link to={`/catalogue/${product.slug}`}>
-                              <h3 className="text-[var(--text)] font-semibold text-xs sm:text-sm group-hover:text-[var(--orange)] transition-colors line-clamp-2 leading-snug">
+                              <h3 className="text-[var(--text)] font-semibold text-xs sm:text-sm group-hover:text-[var(--orange)] transition-colors line-clamp-2 leading-snug font-request">
                                 {product.name}
                               </h3>
                             </Link>
-                            <p className="text-[var(--text-muted)] text-[10px] sm:text-xs mt-1">{product.brand}</p>
+                            <p className="text-[var(--text-muted)] text-[10px] sm:text-xs mt-1 font-qaranta">{product.brand}</p>
                             <div className="flex items-center justify-between mt-2 sm:mt-3 pt-2 border-t border-[var(--border)]/50">
                               <span className="text-[var(--orange)] font-bold text-sm sm:text-base font-mono">{product.price}€</span>
                               {product.rating > 0 && (
@@ -324,8 +324,8 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div>
-                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">⭐ Mes Avis</h1>
-                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1">{reviews.length} avis publié{reviews.length > 1 ? 's' : ''}</p>
+                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">⭐ Mes Avis</h1>
+                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1 font-qaranta">{reviews.length} avis publié{reviews.length > 1 ? 's' : ''}</p>
                     </div>
                   </div>
 
@@ -351,10 +351,10 @@ const Dashboard = () => {
                                 {CATEGORY_ICONS[review.product?.category] || '📦'}
                               </div>
                               <div className="min-w-0">
-                                <Link to={`/catalogue/${review.product?.slug}`} className="text-[var(--text)] font-semibold text-sm hover:text-[var(--orange)] transition-colors truncate block">
+                                <Link to={`/catalogue/${review.product?.slug}`} className="text-[var(--text)] font-semibold text-sm hover:text-[var(--orange)] transition-colors truncate block font-request">
                                   {review.product?.name}
                                 </Link>
-                                <p className="text-[var(--text-muted)] text-[10px] sm:text-xs">{review.product?.brand} • {review.product?.category}</p>
+                                <p className="text-[var(--text-muted)] text-[10px] sm:text-xs font-qaranta">{review.product?.brand} • {review.product?.category}</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-0.5 shrink-0">
@@ -364,17 +364,17 @@ const Dashboard = () => {
                             </div>
                           </div>
 
-                          <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-3 leading-relaxed">{review.comment}</p>
+                          <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-3 leading-relaxed font-qaranta">{review.comment}</p>
 
                           <div className="flex items-center justify-between mt-3 sm:mt-4 pt-3 border-t border-[var(--border)]/50">
-                            <span className="text-[var(--text-muted)] text-[10px] sm:text-xs">
+                            <span className="text-[var(--text-muted)] text-[10px] sm:text-xs font-qaranta">
                               {new Date(review.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
                             </span>
                             <div className="flex gap-1.5 sm:gap-2">
-                              <Link to={`/catalogue/${review.product?.slug}`} className="px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs border border-[var(--border)] text-[var(--text-muted)] rounded-lg hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors">
+                              <Link to={`/catalogue/${review.product?.slug}`} className="px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs border border-[var(--border)] text-[var(--text-muted)] rounded-lg font-qaranta hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors">
                                 ✏️ <span className="hidden sm:inline">Modifier</span>
                               </Link>
-                              <button onClick={() => handleDeleteReview(review._id)} className="px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors cursor-pointer">
+                              <button onClick={() => handleDeleteReview(review._id)} className="px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs border border-red-500/30 text-red-400 rounded-lg font-qaranta hover:bg-red-500/10 transition-colors cursor-pointer">
                                 🗑️ <span className="hidden sm:inline">Supprimer</span>
                               </button>
                             </div>
@@ -396,10 +396,10 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div>
-                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">🏷️ Mes Annonces</h1>
-                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1">{listings.length} annonce{listings.length > 1 ? 's' : ''}</p>
+                      <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">🏷️ Mes Annonces</h1>
+                      <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1 font-qaranta">{listings.length} annonce{listings.length > 1 ? 's' : ''}</p>
                     </div>
-                    <Link to="/marketplace/new" className="px-3 sm:px-4 py-2 bg-[var(--orange)] text-white rounded-lg hover:opacity-90 transition-opacity text-xs sm:text-sm font-medium">
+                    <Link to="/marketplace/new" className="px-3 sm:px-4 py-2 bg-[var(--orange)] text-white rounded-lg hover:opacity-90 transition-opacity text-xs sm:text-sm font-medium font-qaranta">
                       + <span className="hidden sm:inline">Nouvelle annonce</span><span className="sm:hidden">Créer</span>
                     </Link>
                   </div>
@@ -432,7 +432,7 @@ const Dashboard = () => {
 
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
-                                <Link to={`/marketplace/${listing.slug}`} className="text-[var(--text)] font-semibold text-xs sm:text-sm hover:text-[var(--orange)] transition-colors truncate">
+                                <Link to={`/marketplace/${listing.slug}`} className="text-[var(--text)] font-semibold text-xs sm:text-sm hover:text-[var(--orange)] transition-colors truncate font-request">
                                   {listing.title}
                                 </Link>
                                 <span
@@ -442,7 +442,7 @@ const Dashboard = () => {
                                   {statusCfg.label}
                                 </span>
                               </div>
-                              <p className="text-[var(--text-muted)] text-[10px] sm:text-xs truncate">
+                              <p className="text-[var(--text-muted)] text-[10px] sm:text-xs truncate font-qaranta">
                                 {listing.category} • {listing.condition} • {new Date(listing.createdAt).toLocaleDateString('fr-FR')}
                               </p>
                             </div>
@@ -471,31 +471,31 @@ const Dashboard = () => {
                 >
                   <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] mb-5 sm:mb-6">⚙️ Paramètres</h1>
                   <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 sm:p-6">
-                    <h3 className="text-[var(--text)] font-bold text-sm sm:text-base mb-4">Informations personnelles</h3>
+                    <h3 className="text-[var(--text)] font-bold text-sm sm:text-base mb-4 font-request">Informations personnelles</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2">Prénom</label>
+                        <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2 font-qaranta">Prénom</label>
                         <input
                           type="text"
                           defaultValue={user?.firstName}
-                          className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                          className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm font-qaranta focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                         />
                       </div>
                       <div>
-                        <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2">Nom</label>
+                        <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2 font-qaranta">Nom</label>
                         <input
                           type="text"
                           defaultValue={user?.lastName}
-                          className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                          className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm font-qaranta focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                         />
                       </div>
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2">Email</label>
+                      <label className="block text-[var(--text-muted)] text-xs font-medium uppercase tracking-wider mb-2 font-qaranta">Email</label>
                       <input
                         type="email"
                         defaultValue={user?.email}
-                        className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                        className="w-full px-4 py-2.5 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm font-qaranta focus:border-[var(--orange)] focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                       />
                     </div>
                     <div className="mt-6 pt-4 border-t border-[var(--border)]">

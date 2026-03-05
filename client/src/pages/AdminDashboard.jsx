@@ -19,8 +19,8 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg px-3 py-2 shadow-lg">
-      <p className="text-[10px] text-[var(--text-muted)]">{label || payload[0]?.name}</p>
-      <p className="text-xs font-bold text-[var(--text)]">{payload[0]?.value}</p>
+      <p className="text-[10px] text-[var(--text-muted)] font-qaranta">{label || payload[0]?.name}</p>
+      <p className="text-xs font-bold text-[var(--text)] font-request">{payload[0]?.value}</p>
     </div>
   );
 };
@@ -85,8 +85,8 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">Panel Admin</h1>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">Vue d'ensemble de TechPulse</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">Panel Admin</h1>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 font-qaranta">Vue d'ensemble de TechPulse</p>
           </div>
           <div className="flex gap-2 flex-wrap">
             {[
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
               { to: '/admin/listings', icon: '🏪', label: 'Annonces', badge: stats.pendingListings },
               { to: '/admin/users', icon: '👥', label: 'Users' },
             ].map((l) => (
-              <Link key={l.to} to={l.to} className="px-3 py-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-xs text-[var(--text-muted)] hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors relative">
+              <Link key={l.to} to={l.to} className="px-3 py-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-xs text-[var(--text-muted)] hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors relative font-qaranta">
                 {l.icon} {l.label}
                 {l.badge > 0 && <span className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center animate-pulse font-bold">{l.badge}</span>}
               </Link>
@@ -115,8 +115,8 @@ const AdminDashboard = () => {
                 <span className="text-lg sm:text-2xl">{kpi.icon}</span>
                 <span className="text-xl sm:text-3xl font-bold" style={{ color: kpi.color }}>{kpi.value.toLocaleString('fr-FR')}</span>
               </div>
-              <p className="text-xs sm:text-sm text-[var(--text)] font-medium">{kpi.label}</p>
-              <p className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-0.5">{kpi.sub}</p>
+              <p className="text-xs sm:text-sm text-[var(--text)] font-medium font-request">{kpi.label}</p>
+              <p className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-0.5 font-qaranta">{kpi.sub}</p>
             </motion.div>
           ))}
         </div>
@@ -127,8 +127,8 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-3">
               <span className="text-lg">⚠️</span>
               <div>
-                <p className="text-xs sm:text-sm font-medium text-amber-400">{stats.pendingListings} annonce{stats.pendingListings > 1 ? 's' : ''} en attente</p>
-                <p className="text-[10px] sm:text-xs text-[var(--text-muted)]">Les vendeurs attendent votre validation</p>
+                <p className="text-xs sm:text-sm font-medium text-amber-400 font-request">{stats.pendingListings} annonce{stats.pendingListings > 1 ? 's' : ''} en attente</p>
+                <p className="text-[10px] sm:text-xs text-[var(--text-muted)] font-qaranta">Les vendeurs attendent votre validation</p>
               </div>
             </div>
             <Link to="/admin/listings?status=pending" className="px-4 py-2 bg-amber-500 text-white rounded-lg text-xs font-medium hover:bg-amber-600 transition-colors shrink-0 text-center">
@@ -140,7 +140,7 @@ const AdminDashboard = () => {
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6">
-            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4">Produits par catégorie</h2>
+            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4 font-request">Produits par catégorie</h2>
             {categoryData.length > 0 ? (
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={categoryData} barSize={28}>
@@ -155,7 +155,7 @@ const AdminDashboard = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6">
-            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4">Répartition par marque</h2>
+            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4 font-request">Répartition par marque</h2>
             {brandData.length > 0 ? (
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
@@ -173,7 +173,7 @@ const AdminDashboard = () => {
         {/* Bottom row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6">
-            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4">Annonces par statut</h2>
+            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4 font-request">Annonces par statut</h2>
             {statusData.length > 0 ? (
               <ResponsiveContainer width="100%" height={170}>
                 <PieChart>
@@ -188,7 +188,7 @@ const AdminDashboard = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6">
-            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4">Modération</h2>
+            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4 font-request">Modération</h2>
             <div className="space-y-2.5">
               {[
                 { label: 'En attente', value: stats.pendingListings, color: stats.pendingListings > 0 ? 'text-amber-400' : 'text-emerald-400' },
@@ -198,8 +198,8 @@ const AdminDashboard = () => {
                 { label: 'Note moyenne', value: stats.averageRating ? `${stats.averageRating.toFixed(1)}/5` : '—', color: 'text-amber-400' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">{item.label}</span>
-                  <span className={`font-bold text-xs ${item.color}`}>{item.value}</span>
+                  <span className="text-xs text-[var(--text-muted)] font-qaranta">{item.label}</span>
+                  <span className={`font-bold text-xs ${item.color} font-qaranta`}>{item.value}</span>
                 </div>
               ))}
             </div>
@@ -211,17 +211,17 @@ const AdminDashboard = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
-            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4">Derniers avis</h2>
+            <h2 className="text-sm sm:text-base font-bold text-[var(--text)] mb-4 font-request">Derniers avis</h2>
             {stats.recentReviews?.length > 0 ? (
               <div className="space-y-2.5">
                 {stats.recentReviews.map((r) => (
                   <div key={r._id} className="p-2.5 bg-[var(--bg-deep)] rounded-xl">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-medium text-[var(--text)]">{r.user}</span>
+                      <span className="text-[10px] font-medium text-[var(--text)] font-request">{r.user}</span>
                       <Stars rating={r.rating} />
                     </div>
-                    <p className="text-[10px] text-[var(--text-muted)] truncate">{r.comment}</p>
-                    <p className="text-[10px] text-[var(--text-muted)]/50 mt-1">sur {r.product} • {new Date(r.createdAt).toLocaleDateString('fr-FR')}</p>
+                    <p className="text-[10px] text-[var(--text-muted)] truncate font-qaranta">{r.comment}</p>
+                    <p className="text-[10px] text-[var(--text-muted)]/50 mt-1 font-qaranta">sur {r.product} • {new Date(r.createdAt).toLocaleDateString('fr-FR')}</p>
                   </div>
                 ))}
               </div>
