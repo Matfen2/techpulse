@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-deep)] flex items-center justify-center px-4 py-8 relative overflow-hidden">
+    <div className="min-h-[80vh] bg-[var(--bg-deep)] flex items-center justify-center px-4 py-8 relative overflow-hidden">
 
       {/* Background glow */}
       <div
@@ -50,16 +50,16 @@ const Login = () => {
         className="w-full max-w-sm relative z-10"
       >
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <Link to="/" className="inline-block">
             <motion.span
               whileHover={{ scale: 1.05 }}
-              className="text-2xl sm:text-3xl font-bold text-[var(--orange)] inline-block"
+              className="text-2xl sm:text-3xl font-request font-bold text-[var(--orange)] inline-block"
             >
               TechPulse
             </motion.span>
           </Link>
-          <p className="text-sm text-[var(--text-muted)] mt-2">Connectez-vous à votre compte</p>
+          <p className="text-md text-[var(--text-muted)] font-qaranta mt-2">Connectez-vous à votre compte</p>
         </div>
 
         {/* Card */}
@@ -76,11 +76,10 @@ const Login = () => {
                 initial={{ opacity: 0, y: -10, height: 0 }}
                 animate={{ opacity: 1, y: 0, height: 'auto' }}
                 exit={{ opacity: 0, y: -10, height: 0 }}
-                className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2"
+                className="bg-red-500/10 border border-red-500/30 text-red-400 font-request text-center px-4 py-1 rounded-xl mb-6 text-sm flex items-center gap-2"
               >
-                <span>⚠️</span>
                 <span className="flex-1">{error}</span>
-                <button onClick={() => setError('')} className="text-red-400/50 hover:text-red-400 cursor-pointer">✕</button>
+                <button onClick={() => setError('')} className="text-red-400/50 font-qaranta hover:text-red-400 cursor-pointer">✕</button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -88,7 +87,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Email
               </label>
               <div className="relative">
@@ -100,14 +99,14 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="email@exemple.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                  className="w-full pl-11 pr-4 py-3 font-qaranta bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-qaranta font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Mot de passe
               </label>
               <div className="relative">
@@ -119,7 +118,7 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-11 pr-12 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                  className="w-full pl-11 font-qaranta pr-12 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                 />
                 <button
                   type="button"
@@ -137,7 +136,7 @@ const Login = () => {
               disabled={loading}
               whileHover={{ scale: loading ? 1 : 1.02 }}
               whileTap={{ scale: loading ? 1 : 0.98 }}
-              className={`w-full py-3 font-semibold rounded-xl transition-all text-sm cursor-pointer ${
+              className={`w-40 block mx-auto py-3 font-request rounded-xl transition-all text-sm cursor-pointer ${
                 loading
                   ? 'bg-[var(--orange)]/50 text-white/50'
                   : 'bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white hover:shadow-xl hover:shadow-[var(--orange)]/25'
@@ -145,7 +144,7 @@ const Login = () => {
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span className="w-4 h-4 border-2 font-request border-white/30 border-t-white rounded-full animate-spin" />
                   Connexion...
                 </span>
               ) : (
@@ -157,11 +156,11 @@ const Login = () => {
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-[var(--border)]" />
-            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">ou</span>
+            <span className="text-[15px] text-[var(--text-muted)] font-qaranta uppercase tracking-wider">ou</span>
             <div className="flex-1 h-px bg-[var(--border)]" />
           </div>
 
-          <p className="text-center text-[var(--text-muted)] text-sm">
+          <p className="text-center font-qaranta text-[var(--text-muted)] text-md">
             Pas encore de compte ?{' '}
             <Link to="/signup" className="text-[var(--orange)] hover:underline font-medium">
               Créer un compte
@@ -174,7 +173,7 @@ const Login = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-center mt-6 text-xs text-[var(--text-muted)]"
+          className="text-center font-request mt-6 text-md text-[var(--text-muted)]"
         >
           <Link to="/" className="hover:text-[var(--orange)] transition-colors">← Retour à l'accueil</Link>
         </motion.p>

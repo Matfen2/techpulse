@@ -21,7 +21,7 @@ const Rating = ({ value = 0, count = 0, size = 'sm' }) => {
           </span>
         ))}
       </div>
-      <span className={`text-[var(--text-muted)] ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>
+      <span className={`text-[var(--text-muted) font-request] ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>
         {value > 0 ? value.toFixed(1) : 'N/A'} ({count} avis)
       </span>
     </div>

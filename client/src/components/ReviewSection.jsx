@@ -6,7 +6,7 @@ const StarInput = ({ value, onChange }) => {
   const [hover, setHover] = useState(0);
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-0.5 sm:gap-1">
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
@@ -14,7 +14,7 @@ const StarInput = ({ value, onChange }) => {
           onClick={() => onChange(star)}
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
-          className={`text-2xl cursor-pointer transition-colors ${
+          className={`text-lg sm:text-2xl cursor-pointer transition-colors ${
             star <= (hover || value) ? 'text-[var(--warning)]' : 'text-[var(--text-muted)]/30'
           }`}
         >
@@ -70,7 +70,7 @@ const ReviewSection = ({ productId }) => {
       setComment('');
       await fetchReviews();
     } catch (err) {
-      setError(err.response?.data?.message || 'Erreur lors de l\'envoi');
+      setError(err.response?.data?.message || "Erreur lors de l'envoi");
     } finally {
       setSubmitting(false);
     }
@@ -98,84 +98,82 @@ const ReviewSection = ({ productId }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-8">
+    <div className="max-w-7xl mx-auto px-4 py-6 -mt-12 sm:py-10 lg:py-12">
+      <h2 className="text-base sm:text-xl lg:text-2xl font-request text-[var(--text-primary)] mb-5 sm:mb-8">
         Avis clients ({reviews.length})
       </h2>
 
       {/* Review Form */}
       {isAuthenticated && !userReview && !editingId && (
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Donner votre avis</h3>
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
+          <h3 className="text-sm sm:text-lg font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 font-request">Donner votre avis</h3>
           {error && (
-            <div className="bg-[var(--error)]/10 border border-[var(--error)]/30 text-[var(--error)] px-4 py-2 rounded-lg mb-4 text-sm">
+            <div className="bg-[var(--error)]/10 border border-[var(--error)]/30 text-[var(--error)] px-3 sm:px-4 py-2 rounded-lg mb-3 sm:mb-4 text-xs sm:text-sm font-qaranta">
               {error}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div>
-              <label className="block text-sm text-[var(--text-secondary)] mb-2">Note</label>
-              <StarInput value={rating} onChange={setRating} />
-            </div>
-            <div>
-              <label className="block text-sm text-[var(--text-secondary)] mb-2">Commentaire</label>
+              <label className="block text-[10px] sm:text-sm font-qaranta text-[var(--text-secondary)] mb-1.5 sm:mb-2">Commentaire</label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="Partagez votre expérience avec ce produit..."
                 rows={3}
-                className="w-full px-4 py-3 bg-[var(--bg-base)] border border-[var(--border)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--primary)] resize-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--bg-base)] border border-[var(--border)] rounded-lg font-qaranta text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--primary)] resize-none"
               />
             </div>
-            <button
-              type="submit"
-              disabled={submitting}
-              className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-semibold rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
-            >
-              {submitting ? 'Envoi...' : 'Publier'}
-            </button>
+            <div className="flex flex-row items-center justify-between gap-3">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="px-3 sm:px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-qaranta rounded-lg transition-colors disabled:opacity-50 cursor-pointer text-xs sm:text-sm"
+              >
+                {submitting ? 'Envoi...' : 'Publier'}
+              </button>
+              <StarInput value={rating} onChange={setRating} />
+            </div>
           </form>
         </div>
       )}
 
       {/* Edit Form */}
       {editingId && (
-        <div className="bg-[var(--bg-card)] border border-[var(--primary)]/30 rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-semibold text-[var(--primary)] mb-4">Modifier votre avis</h3>
+        <div className="bg-[var(--bg-card)] border border-[var(--primary)]/30 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
+          <h3 className="text-sm sm:text-lg font-request text-[var(--primary)] mb-2">Modifier votre avis</h3>
           {error && (
-            <div className="bg-[var(--error)]/10 border border-[var(--error)]/30 text-[var(--error)] px-4 py-2 rounded-lg mb-4 text-sm">
+            <div className="bg-[var(--error)]/10 border border-[var(--error)]/30 text-[var(--error)] font-qaranta px-3 sm:px-4 py-2 rounded-lg mb-2 text-xs sm:text-sm">
               {error}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div>
-              <label className="block text-sm text-[var(--text-secondary)] mb-2">Note</label>
-              <StarInput value={rating} onChange={setRating} />
-            </div>
-            <div>
-              <label className="block text-sm text-[var(--text-secondary)] mb-2">Commentaire</label>
+              <label className="block text-[10px] sm:text-sm font-qaranta text-[var(--text-secondary)] mb-1.5 sm:mb-2">Commentaire</label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-3 bg-[var(--bg-base)] border border-[var(--border)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--primary)] resize-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--bg-base)] border border-[var(--border)] font-qaranta rounded-lg text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--primary)] resize-none"
               />
             </div>
-            <div className="flex gap-3">
-              <button
-                type="submit"
-                disabled={submitting}
-                className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-semibold rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
-              >
-                {submitting ? 'Envoi...' : 'Modifier'}
-              </button>
-              <button
-                type="button"
-                onClick={handleCancelEdit}
-                className="px-6 py-2 border border-[var(--border)] text-[var(--text-secondary)] rounded-lg hover:border-[var(--text-muted)] transition-colors cursor-pointer"
-              >
-                Annuler
-              </button>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex gap-2 sm:gap-3">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-3 sm:px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-qaranta rounded-lg transition-colors disabled:opacity-50 cursor-pointer text-xs sm:text-sm"
+                >
+                  {submitting ? 'Envoi...' : 'Modifier'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancelEdit}
+                  className="px-3 sm:px-4 py-2 border border-[var(--border)] font-qaranta text-[var(--text-secondary)] rounded-lg hover:border-[var(--text-muted)] transition-colors cursor-pointer text-xs sm:text-sm"
+                >
+                  Annuler
+                </button>
+              </div>
+              <StarInput value={rating} onChange={setRating} />
             </div>
           </form>
         </div>
@@ -183,67 +181,72 @@ const ReviewSection = ({ productId }) => {
 
       {/* Reviews List */}
       {loading ? (
-        <div className="text-center text-[var(--text-muted)]">Chargement des avis...</div>
+        <div className="text-center font-request text-[var(--text-muted)] text-xs sm:text-sm">Chargement des avis...</div>
       ) : reviews.length === 0 ? (
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-8 text-center">
-          <p className="text-[var(--text-muted)]">Aucun avis pour le moment. Soyez le premier !</p>
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-6 sm:p-8 text-center">
+          <p className="text-[var(--text-muted)] font-qaranta text-xs sm:text-sm">Aucun avis pour le moment. Soyez le premier !</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {reviews.map((review) => (
             <div
               key={review._id}
-              className={`bg-[var(--bg-card)] border rounded-xl p-5 ${
+              className={`bg-[var(--bg-card)] border rounded-xl p-3.5 sm:p-5 ${
                 review.user._id === user?.id ? 'border-[var(--primary)]/30' : 'border-[var(--border)]'
               }`}
             >
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[var(--text-primary)] font-semibold text-sm">
-                      {review.user.firstName} {review.user.lastName}
+              {/* Header: name + badges + actions */}
+              <div className="flex items-start justify-between mb-2 sm:mb-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <span className="text-[var(--text-primary)] font-request text-xs sm:text-sm">
+                    {review.user.firstName} {review.user.lastName}
+                  </span>
+                  {review.user._id === user?.id && (
+                    <span className="px-1.5 sm:px-2 py-0.5 bg-[var(--primary)]/10 text-[var(--primary)] font-qaranta rounded text-[9px] sm:text-xs">
+                      Vous
                     </span>
-                    {review.user._id === user?.id && (
-                      <span className="px-2 py-0.5 bg-[var(--primary)]/10 text-[var(--primary)] rounded text-xs">
-                        Vous
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <span
-                        key={i}
-                        className={`text-sm ${
-                          i < review.rating ? 'text-[var(--warning)]' : 'text-[var(--text-muted)]/30'
-                        }`}
-                      >
-                        ★
-                      </span>
-                    ))}
-                    <span className="text-xs text-[var(--text-muted)] ml-2">
-                      {new Date(review.createdAt).toLocaleDateString('fr-FR')}
-                    </span>
-                  </div>
+                  )}
                 </div>
 
                 {review.user._id === user?.id && !editingId && (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                     <button
                       onClick={() => handleEdit(review)}
-                      className="text-xs text-[var(--info)] hover:underline cursor-pointer"
+                      className="text-[10px] sm:text-xs text-[var(--info)] hover:underline cursor-pointer font-qaranta"
                     >
                       Modifier
                     </button>
                     <button
                       onClick={() => handleDelete(review._id)}
-                      className="text-xs text-[var(--error)] hover:underline cursor-pointer"
+                      className="text-[10px] sm:text-xs text-[var(--error)] hover:underline cursor-pointer font-qaranta"
                     >
                       Supprimer
                     </button>
                   </div>
                 )}
               </div>
-              <p className="text-[var(--text-secondary)] text-sm">{review.comment}</p>
+
+              {/* Body: comment + stars + date */}
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-qaranta flex-1">{review.comment}</p>
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <div className="flex">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <span
+                        key={i}
+                        className={`text-[10px] sm:text-sm ${
+                          i < review.rating ? 'text-[var(--warning)]' : 'text-[var(--text-muted)]/30'
+                        }`}
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <span className="text-[9px] sm:text-xs text-[var(--text-muted)] font-qaranta">
+                    {new Date(review.createdAt).toLocaleDateString('fr-FR')}
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -251,7 +254,7 @@ const ReviewSection = ({ productId }) => {
 
       {/* Not authenticated message */}
       {!isAuthenticated && (
-        <div className="mt-6 text-center text-sm text-[var(--text-muted)]">
+        <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-[var(--text-muted)] font-qaranta">
           <a href="/login" className="text-[var(--primary)] hover:underline">Connectez-vous</a> pour donner votre avis
         </div>
       )}

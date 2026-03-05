@@ -43,15 +43,15 @@ const CreateListing = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <div className="text-5xl mb-4">🔒</div>
-          <p className="text-[var(--text-muted)] mb-4">Connectez-vous pour publier une annonce</p>
-          <Link to="/login" className="px-6 py-2.5 bg-[var(--orange)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity">
+          <div className="text-6xl mb-4">🔒</div>
+          <p className="text-[var(--text-muted)] font-request mb-4 text-2xl">Connectez-vous pour publier une annonce</p>
+          <Link to="/login" className="px-3 py-2.5 bg-[var(--orange)] text-white text-xl rounded-lg font-qaranta transition-all hover:scale-105">
             Se connecter
           </Link>
         </motion.div>
@@ -147,7 +147,7 @@ const CreateListing = () => {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-sm text-[var(--text-muted)] mb-4 sm:mb-6"
+          className="flex items-center gap-2 text-sm font-qaranta text-[var(--text-muted)] mb-4 sm:mb-6"
         >
           <Link to="/marketplace" className="hover:text-[var(--orange)] transition-colors">Marketplace</Link>
           <span className="text-[var(--border)]">/</span>
@@ -159,18 +159,18 @@ const CreateListing = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="mb-6 sm:mb-8"
+          className="mb-6 sm:mb-8 text-center"
         >
-          <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2">Publier une annonce</h1>
-          <p className="text-sm text-[var(--text-muted)]">
+          <h1 className="text-2xl sm:text-4xl font-request text-[var(--text)] mb-2">Publier une annonce</h1>
+          <p className="text-xl text-[var(--text-muted)] font-qaranta">
             La vidéo de vérification est obligatoire pour prouver l'état de votre produit 🔒
           </p>
 
           {/* Progress indicator */}
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center justify-center font-qaranta gap-3 mt-4">
             {['Informations', 'Vidéo', 'Photos'].map((step, i) => (
               <div key={step} className="flex items-center gap-2">
-                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                <div className={`w-6 h-6 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xl font-qaranta transition-all ${
                   i < completedSteps
                     ? 'bg-emerald-500 text-white'
                     : i === completedSteps
@@ -201,7 +201,7 @@ const CreateListing = () => {
               initial={{ opacity: 0, y: -10, height: 0 }}
               animate={{ opacity: 1, y: 0, height: 'auto' }}
               exit={{ opacity: 0, y: -10, height: 0 }}
-              className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2"
+              className="bg-red-500/10 border border-red-500/30 text-red-400 font-qaranta px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2"
             >
               <span>⚠️</span>
               {error}
@@ -221,14 +221,14 @@ const CreateListing = () => {
             transition={{ delay: 0.1 }}
             className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 sm:p-6 space-y-5"
           >
-            <h2 className="text-base sm:text-lg font-bold text-[var(--text)] flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-[var(--orange)]/10 text-[var(--orange)] flex items-center justify-center text-sm">1</span>
+            <h2 className="text-base sm:text-lg font-request text-[var(--text)] flex items-center gap-2">
+              <span className="w-7 h-7 rounded-lg bg-[var(--orange)]/10 text-[var(--orange)] flex items-center font-request justify-center text-sm">1</span>
               Informations
             </h2>
 
             {/* Title */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Titre de l'annonce
               </label>
               <input
@@ -239,14 +239,14 @@ const CreateListing = () => {
                 placeholder="Ex: iPhone 15 Pro Max 256Go Noir"
                 required
                 maxLength={100}
-                className="w-full px-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                className="w-full px-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm font-qaranta text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
               />
               <p className="text-right text-[10px] text-[var(--text-muted)]/50 mt-1">{formData.title.length}/100</p>
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Description
               </label>
               <textarea
@@ -256,14 +256,14 @@ const CreateListing = () => {
                 placeholder="Décrivez votre produit en détail (état, accessoires inclus, raison de la vente...)"
                 required
                 rows={4}
-                className="w-full px-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all resize-none focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                className="w-full px-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm font-qaranta text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all resize-none focus:shadow-lg focus:shadow-[var(--orange)]/5"
               />
             </div>
 
             {/* Price + Location */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                   Prix (€)
                 </label>
                 <div className="relative">
@@ -275,13 +275,13 @@ const CreateListing = () => {
                     placeholder="850"
                     required
                     min="1"
-                    className="w-full pl-4 pr-10 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all font-mono focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                    className="w-full pl-4 pr-10 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm font-qaranta text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all font-mono focus:shadow-lg focus:shadow-[var(--orange)]/5"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-sm font-mono">€</span>
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                   Localisation
                 </label>
                 <div className="relative">
@@ -292,7 +292,7 @@ const CreateListing = () => {
                     value={formData.location}
                     onChange={handleChange}
                     placeholder="Paris 75011"
-                    className="w-full pl-10 pr-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                    className="w-full pl-10 pr-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm font-qaranta text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                   />
                 </div>
               </div>
@@ -300,7 +300,7 @@ const CreateListing = () => {
 
             {/* Category pills */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-3">
+              <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-3">
                 Catégorie
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -310,7 +310,7 @@ const CreateListing = () => {
                     type="button"
                     whileTap={{ scale: 0.95 }}
                     onClick={() => selectCategory(cat)}
-                    className={`p-3 rounded-xl border text-sm font-medium transition-all cursor-pointer flex flex-col items-center gap-1.5 ${
+                    className={`p-3 rounded-xl border text-sm font-qaranta transition-all cursor-pointer flex flex-col items-center gap-1.5 ${
                       formData.category === cat
                         ? 'bg-[var(--orange)]/10 border-[var(--orange)] text-[var(--orange)] shadow-md shadow-[var(--orange)]/10'
                         : 'bg-[var(--bg-deep)] border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--orange)]/50 hover:text-[var(--text)]'
@@ -325,7 +325,7 @@ const CreateListing = () => {
 
             {/* Condition pills */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-3">
+              <label className="block text-md font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-3">
                 État du produit
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -355,7 +355,7 @@ const CreateListing = () => {
                           style={{ backgroundColor: cfg.color }}
                         />
                         <span
-                          className={`text-sm font-medium ${isActive ? '' : 'text-[var(--text)]'}`}
+                          className={`text-sm font-qaranta ${isActive ? '' : 'text-[var(--text)]'}`}
                           style={isActive ? { color: cfg.color } : {}}
                         >
                           {cond}
@@ -371,7 +371,7 @@ const CreateListing = () => {
                           </motion.span>
                         )}
                       </div>
-                      <p className="text-[10px] sm:text-xs text-[var(--text-muted)] ml-4.5">{cfg.desc}</p>
+                      <p className="text-[10px] font-qaranta sm:text-xs text-[var(--text-muted)] ml-4.5">{cfg.desc}</p>
                     </motion.button>
                   );
                 })}
@@ -389,15 +389,15 @@ const CreateListing = () => {
             className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 sm:p-6 space-y-4"
           >
             <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-bold text-[var(--text)] flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-sm">2</span>
+              <h2 className="sm:text-lg font-request flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-red-500/10 text-red-400 font-request flex items-center justify-center text-sm">2</span>
                 Vidéo de vérification
               </h2>
-              <span className="px-2 py-0.5 bg-red-500/10 text-red-400 rounded-full text-[10px] sm:text-xs font-medium">
+              <span className="px-2 py-0.5 font-request bg-red-500/10 text-red-400 rounded-full text-[10px] sm:text-xs font-medium">
                 Obligatoire
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)]">
+            <p className="text-xs sm:text-sm font-qaranta text-[var(--text-muted)]">
               Filmez votre produit sous tous les angles pour prouver son état. Durée recommandée : 15-60 secondes.
             </p>
 
@@ -426,8 +426,8 @@ const CreateListing = () => {
                 ) : (
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 400 }}>
                     <div className="text-4xl sm:text-5xl mb-3">🎥</div>
-                    <p className="text-sm text-[var(--text)] font-medium mb-1">Cliquez pour ajouter une vidéo</p>
-                    <p className="text-[10px] sm:text-xs text-[var(--text-muted)]">MP4, WebM, MOV — Max 100 Mo</p>
+                    <p className="text-sm text-[var(--text)] font-qaranta mb-1">Cliquez pour ajouter une vidéo</p>
+                    <p className="text-[10px] sm:text-xs font-qaranta text-[var(--text-muted)]">MP4, WebM, MOV — Max 100 Mo</p>
                   </motion.div>
                 )}
               </div>
@@ -463,11 +463,11 @@ const CreateListing = () => {
             className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 sm:p-6 space-y-4"
           >
             <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-bold text-[var(--text)] flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center text-sm">3</span>
+              <h2 className="font-request sm:text-lg font-bold text-[var(--text)] flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-400 flex font-request items-center justify-center text-sm">3</span>
                 Photos
               </h2>
-              <span className="px-2 py-0.5 bg-sky-500/10 text-sky-400 rounded-full text-[10px] sm:text-xs font-medium">
+              <span className="px-2 py-0.5 bg-sky-500/10 text-sky-400 rounded-full text-[10px] sm:text-xs font-request">
                 Optionnel
               </span>
             </div>
@@ -505,8 +505,8 @@ const CreateListing = () => {
                 ) : (
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 400 }}>
                     <div className="text-3xl sm:text-4xl mb-2">📷</div>
-                    <p className="text-sm text-[var(--text)] font-medium mb-1">Ajouter jusqu'à 5 photos</p>
-                    <p className="text-[10px] sm:text-xs text-[var(--text-muted)]">JPG, PNG, WebP</p>
+                    <p className="text-sm text-[var(--text)] font-qaranta mb-1">Ajouter jusqu'à 5 photos</p>
+                    <p className="text-[10px] sm:text-xs font-qaranta text-[var(--text-muted)]">JPG, PNG, WebP</p>
                   </motion.div>
                 )}
               </div>
@@ -530,8 +530,8 @@ const CreateListing = () => {
                 className="bg-[var(--bg-card)] border border-[var(--orange)]/30 rounded-2xl p-4 sm:p-5"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-[var(--text)] font-medium">Upload en cours...</span>
-                  <span className="text-sm text-[var(--orange)] font-mono font-bold">{uploadProgress}%</span>
+                  <span className="text-sm text-[var(--text)] font-request">Upload en cours...</span>
+                  <span className="text-sm text-[var(--orange)] font-qaranta">{uploadProgress}%</span>
                 </div>
                 <div className="w-full bg-[var(--bg-deep)] rounded-full h-2 overflow-hidden">
                   <motion.div
@@ -551,7 +551,7 @@ const CreateListing = () => {
             disabled={loading}
             whileHover={{ scale: loading ? 1 : 1.01 }}
             whileTap={{ scale: loading ? 1 : 0.98 }}
-            className={`w-full py-3.5 sm:py-4 font-semibold rounded-2xl transition-all text-base sm:text-lg cursor-pointer ${
+            className={`w-58 block mx-auto py-3.5 sm:py-4 font-qaranta rounded-2xl transition-all hover:scale-105 text-base sm:text-lg cursor-pointer ${
               loading
                 ? 'bg-[var(--orange)]/50 text-white/50'
                 : 'bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white hover:shadow-xl hover:shadow-[var(--orange)]/25'

@@ -81,7 +81,7 @@ const NotFound = () => {
             transition: 'transform 0.3s ease-out',
           }}
         >
-          <h1 className="text-[120px] sm:text-[180px] md:text-[220px] font-black leading-none select-none relative">
+          <h1 className="text-[120px] sm:text-[180px] md:text-[220px] font-request leading-none select-none relative">
             {/* Main text */}
             <span className="relative z-10 bg-gradient-to-b from-[var(--orange)] to-amber-700 bg-clip-text text-transparent">
               404
@@ -89,7 +89,7 @@ const NotFound = () => {
 
             {/* Glitch layer 1 */}
             <motion.span
-              className="absolute top-0 left-0 w-full text-sky-500/40"
+              className="absolute top-0 left-0 w-full text-sky-500/40 font-request"
               animate={{
                 x: [-3, 3, -2, 0],
                 opacity: [0.4, 0.6, 0.3, 0.4],
@@ -102,7 +102,7 @@ const NotFound = () => {
 
             {/* Glitch layer 2 */}
             <motion.span
-              className="absolute top-0 left-0 w-full text-red-500/40"
+              className="absolute top-0 left-0 w-full text-red-500/40 font-request"
               animate={{
                 x: [3, -3, 2, 0],
                 opacity: [0.3, 0.5, 0.4, 0.3],
@@ -129,10 +129,10 @@ const NotFound = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="max-w-md mx-auto"
         >
-          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">
+          <h2 className="text-xl sm:text-3xl font-request text-[var(--text)] mb-3">
             Page introuvable
           </h2>
-          <p className="text-sm sm:text-base text-[var(--text-muted)] mb-8 leading-relaxed">
+          <p className="text-sm sm:text-lg font-qaranta text-[var(--text-muted)] mb-8 leading-relaxed">
             La page que vous cherchez n'existe pas ou a été déplacée.
             Peut-être une erreur dans l'URL ?
           </p>
@@ -141,7 +141,7 @@ const NotFound = () => {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white font-semibold rounded-xl transition-all hover:shadow-xl hover:shadow-[var(--orange)]/25 text-sm sm:text-base w-full sm:w-auto text-center"
+                className="inline-block p-3 bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white font-qaranta rounded-xl transition-all hover:scale-105 hover:shadow-xl hover:shadow-[var(--orange)]/25 text-sm sm:text-base w-full sm:w-auto text-center"
               >
                 ← Retour à l'accueil
               </Link>
@@ -149,7 +149,7 @@ const NotFound = () => {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/catalogue"
-                className="inline-block px-6 py-3 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--orange)] rounded-xl transition-all text-sm sm:text-base w-full sm:w-auto text-center"
+                className="inline-block px-3 py-3 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] font-qaranta hover:border-[var(--orange)] rounded-xl transition-all hover:scale-105 text-sm sm:text-base w-full sm:w-auto text-center"
               >
                 Voir le catalogue
               </Link>
@@ -162,7 +162,7 @@ const NotFound = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-12 sm:mt-16 flex items-center justify-center gap-2 sm:gap-3"
+          className="mt-8 sm:mt-6 flex items-center justify-center gap-2 sm:gap-3"
         >
           {Array.from({ length: 7 }).map((_, i) => (
             <motion.div
@@ -205,13 +205,13 @@ const NotFound = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="mt-8 flex items-center justify-center gap-4 text-xs text-[var(--text-muted)]"
+          className="mt-4 flex items-center justify-center gap-4 text-md font-qaranta text-[var(--text-muted)]"
         >
-          <Link to="/catalogue" className="hover:text-[var(--orange)] transition-colors">Catalogue</Link>
+          <Link to="/catalogue" className="hover:text-[var(--orange)] transition-colors hover:scale-105">Catalogue</Link>
           <span className="text-[var(--border)]">•</span>
-          <Link to="/marketplace" className="hover:text-[var(--orange)] transition-colors">Marketplace</Link>
+          <Link to="/marketplace" className="hover:text-[var(--orange)] transition-colors hover:scale-105">Marketplace</Link>
           <span className="text-[var(--border)]">•</span>
-          <Link to="/login" className="hover:text-[var(--orange)] transition-colors">Connexion</Link>
+          <Link to="/login" className="hover:text-[var(--orange)] transition-colors hover:scale-105">Connexion</Link>
         </motion.div>
       </div>
     </div>

@@ -7,7 +7,7 @@ const PrivateRoute = ({ children, adminOnly = false }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-[var(--primary)] text-xl">Chargement...</div>
+        <div className="text-[var(--primary)] text-xl font-request">Chargement...</div>
       </div>
     );
   }

@@ -67,7 +67,7 @@ const Signup = () => {
   const completedSteps = [step1, step2, step3].filter(Boolean).length;
 
   return (
-    <div className="min-h-screen bg-[var(--bg-deep)] flex items-center justify-center px-4 py-8 relative overflow-hidden">
+    <div className="min-h-[85vh] bg-[var(--bg-deep)] flex items-center justify-center px-4 py-8 relative overflow-hidden">
 
       {/* Background glow */}
       <div
@@ -96,13 +96,13 @@ const Signup = () => {
               TechPulse
             </motion.span>
           </Link>
-          <p className="text-sm text-[var(--text-muted)] mt-2">Créez votre compte TechPulse</p>
+          <p className="text-sm text-[var(--text-muted)] font-request mt-2">Créez votre compte TechPulse</p>
 
           {/* Progress dots */}
           <div className="flex items-center justify-center gap-2 mt-4">
             {['Identité', 'Email', 'Sécurité'].map((label, i) => (
               <div key={label} className="flex items-center gap-2">
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[20px] font-qaranta font-bold transition-all ${
                   i < completedSteps
                     ? 'bg-emerald-500 text-white'
                     : i === completedSteps
@@ -133,11 +133,11 @@ const Signup = () => {
                 initial={{ opacity: 0, y: -10, height: 0 }}
                 animate={{ opacity: 1, y: 0, height: 'auto' }}
                 exit={{ opacity: 0, y: -10, height: 0 }}
-                className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2"
+                className="bg-red-500/10 border border-red-500/30 text-red-400 font-qaranta px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2"
               >
                 <span>⚠️</span>
                 <span className="flex-1">{error}</span>
-                <button onClick={() => setError('')} className="text-red-400/50 hover:text-red-400 cursor-pointer">✕</button>
+                <button onClick={() => setError('')} className="text-red-400/50 hover:text-red-400 font-qaranta cursor-pointer">✕</button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -147,7 +147,7 @@ const Signup = () => {
             {/* Name row */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                   Prénom
                 </label>
                 <div className="relative">
@@ -159,12 +159,12 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Prénom"
                     required
-                    className="w-full pl-10 pr-3 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                    className="w-full pl-10 pr-3 py-3 font-qaranta bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                   Nom
                 </label>
                 <input
@@ -174,14 +174,14 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="Nom"
                   required
-                  className="w-full px-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                  className="w-full px-4 py-3 font-qaranta bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Email
               </label>
               <div className="relative">
@@ -193,14 +193,14 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="email@exemple.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                  className="w-full pl-11 pr-4 py-3 font-qaranta bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-qaranta text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Mot de passe
               </label>
               <div className="relative">
@@ -212,7 +212,7 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="Min. 8 caractères"
                   required
-                  className="w-full pl-11 pr-12 py-3 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
+                  className="w-full pl-11 pr-12 py-3 bg-[var(--bg-deep)] font-qaranta border border-[var(--border)] rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5"
                 />
                 <button
                   type="button"
@@ -248,7 +248,7 @@ const Signup = () => {
                           />
                         ))}
                       </div>
-                      <span className="text-[10px] font-medium" style={{ color: passwordStrength.color }}>
+                      <span className="text-[17px] font-qaranta font-medium" style={{ color: passwordStrength.color }}>
                         {passwordStrength.label}
                       </span>
                     </div>
@@ -259,7 +259,7 @@ const Signup = () => {
                         { test: /[0-9]/.test(formData.password), label: '1 chiffre' },
                         { test: /[^A-Za-z0-9]/.test(formData.password), label: '1 spécial' },
                       ].map(({ test, label }) => (
-                        <span key={label} className={`text-[10px] flex items-center gap-1 ${test ? 'text-emerald-400' : 'text-[var(--text-muted)]/50'}`}>
+                        <span key={label} className={`text-[15px] font-qaranta flex items-center gap-1 ${test ? 'text-emerald-400' : 'text-[var(--text-muted)]/50'}`}>
                           {test ? '✓' : '○'} {label}
                         </span>
                       ))}
@@ -271,7 +271,7 @@ const Signup = () => {
 
             {/* Confirm password */}
             <div>
-              <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              <label className="block font-qaranta text-xs text-[var(--text-muted)] uppercase tracking-wider mb-2">
                 Confirmer le mot de passe
               </label>
               <div className="relative">
@@ -283,7 +283,7 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="••••••••"
                   required
-                  className={`w-full pl-11 pr-12 py-3 bg-[var(--bg-deep)] border rounded-xl text-sm text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5 ${
+                  className={`w-full pl-11 pr-12 font-qaranta py-3 bg-[var(--bg-deep)] border rounded-xl text-md text-[var(--text)] placeholder-[var(--text-muted)]/50 focus:outline-none transition-all focus:shadow-lg focus:shadow-[var(--orange)]/5 ${
                     formData.confirmPassword
                       ? passwordsMatch
                         ? 'border-emerald-500/50 focus:border-emerald-500'
@@ -305,7 +305,7 @@ const Signup = () => {
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className={`text-[10px] mt-1.5 flex items-center gap-1 ${passwordsMatch ? 'text-emerald-400' : 'text-red-400'}`}
+                    className={`text-[15px] mt-1.5 font-qaranta flex items-center gap-1 ${passwordsMatch ? 'text-emerald-400' : 'text-red-400'}`}
                   >
                     {passwordsMatch ? '✓ Les mots de passe correspondent' : '✕ Les mots de passe ne correspondent pas'}
                   </motion.p>
@@ -319,7 +319,7 @@ const Signup = () => {
               disabled={loading}
               whileHover={{ scale: loading ? 1 : 1.02 }}
               whileTap={{ scale: loading ? 1 : 0.98 }}
-              className={`w-full py-3 font-semibold rounded-xl transition-all text-sm cursor-pointer mt-2 ${
+              className={`w-32 block mx-auto py-3 font-request rounded-xl transition-all text-sm cursor-pointer mt-2 ${
                 loading
                   ? 'bg-[var(--orange)]/50 text-white/50'
                   : 'bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white hover:shadow-xl hover:shadow-[var(--orange)]/25'
@@ -327,7 +327,7 @@ const Signup = () => {
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span className="w-4 h-4 font-request border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Inscription...
                 </span>
               ) : (
@@ -339,11 +339,11 @@ const Signup = () => {
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-[var(--border)]" />
-            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">ou</span>
+            <span className="text-[15px] text-[var(--text-muted)] font-qaranta uppercase tracking-wider">ou</span>
             <div className="flex-1 h-px bg-[var(--border)]" />
           </div>
 
-          <p className="text-center text-[var(--text-muted)] text-sm">
+          <p className="text-center font-qaranta text-[var(--text-muted)] text-md">
             Déjà un compte ?{' '}
             <Link to="/login" className="text-[var(--orange)] hover:underline font-medium">
               Se connecter
@@ -356,7 +356,7 @@ const Signup = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-center mt-6 text-xs text-[var(--text-muted)]"
+          className="text-center mt-6 text-xs font-request text-[var(--text-muted)]"
         >
           <Link to="/" className="hover:text-[var(--orange)] transition-colors">← Retour à l'accueil</Link>
         </motion.p>

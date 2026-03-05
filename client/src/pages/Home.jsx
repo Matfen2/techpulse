@@ -258,7 +258,7 @@ const Home = () => {
 
             <div
               className="flex items-center gap-12 sm:gap-24 w-max"
-              style={{ animation: 'marquee 20s linear infinite' }}
+              style={{ animation: 'marquee 10s linear infinite' }}
             >
               {marqueBrands.map((brand, i) => (
                 <Link
@@ -269,7 +269,7 @@ const Home = () => {
                   <img
                     src={brandLogos[brand.name]}
                     alt={brand.name}
-                    className="h-20 sm:h-14 lg:h-20 w-auto object-contain opacity-30 grayscale group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
+                    className="h-20 sm:h-28 lg:h-28 w-auto object-contain opacity-30 grayscale group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
                   />
                 </Link>
               ))}
@@ -299,13 +299,13 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/marketplace/new"
-              className="px-6 sm:px-8 py-3 bg-gradient-to-r from-[var(--orange)] to-orange-500 text-white font-semibold rounded-xl transition-all hover:shadow-xl hover:scale-105 hover:shadow-[var(--orange)]/25 text-sm sm:text-base font-qaranta"
+              className="px-6 sm:px-3 py-3 bg-gradient-to-r from-[var(--orange)] to-orange-500 text-white font-semibold rounded-xl transition-all hover:shadow-xl hover:scale-105 hover:shadow-[var(--orange)]/25 text-sm sm:text-base font-qaranta"
             >
               Déposer une annonce
             </Link>
             <Link
               to="/marketplace"
-              className="px-6 sm:px-8 py-3 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--orange)] rounded-xl transition-all hover:scale-105 text-sm sm:text-base font-qaranta"
+              className="px-6 sm:px-3 py-3 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--orange)] rounded-xl transition-all hover:scale-105 text-sm sm:text-base font-qaranta"
             >
               Explorer la marketplace
             </Link>

@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
           {/* Category + Brand */}
           <div className="flex items-center gap-2 mb-2">
             <span
-              className="px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium"
+              className="pr-2 py-0.5 font-qaranta rounded text-[10px] sm:text-xs font-medium"
               style={{
                 backgroundColor: `${categoryColors[product.category]}15`,
                 color: categoryColors[product.category],
@@ -85,11 +85,11 @@ const ProductCard = ({ product }) => {
             >
               {product.category}
             </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)]">{product.brand}</span>
+            <span className="text-[10px] font-request sm:text-xs text-[var(--text-muted)]">{product.brand}</span>
           </div>
 
           {/* Name */}
-          <h3 className="text-[var(--text-primary)] font-semibold text-sm mb-2 line-clamp-2 group-hover:text-[var(--primary)] transition-colors duration-200 leading-snug">
+          <h3 className="text-[var(--text-primary)] font-qaranta font-semibold text-sm mb-2 line-clamp-2 group-hover:text-[var(--primary)] transition-colors duration-200 leading-snug">
             {product.name}
           </h3>
 
@@ -109,18 +109,18 @@ const ProductCard = ({ product }) => {
                 </span>
               ))}
             </div>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)]">
+            <span className="text-[10px] sm:text-xs font-qaranta text-[var(--text-muted)]">
               {product.rating > 0 ? product.rating.toFixed(1) : 'N/A'} ({product.numReviews} avis)
             </span>
           </div>
 
           {/* Price + Stock */}
           <div className="flex items-center justify-between pt-2 border-t border-[var(--border)]/50">
-            <span className="text-[var(--primary)] font-bold text-base sm:text-lg">
+            <span className="text-[var(--primary)] font-bold font-qaranta text-base sm:text-lg">
               {product.price.toLocaleString('fr-FR')} €
             </span>
             <span
-              className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium ${
+              className={`text-[10px] sm:text-xs p-2 font-request rounded-full font-medium ${
                 product.inStock
                   ? 'bg-[var(--success)]/10 text-[var(--success)]'
                   : 'bg-[var(--error)]/10 text-[var(--error)]'
