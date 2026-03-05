@@ -68,7 +68,7 @@ export default function AdminProducts() {
     finally { setDeleting(false); }
   };
 
-  const inputCls = 'w-full px-3 sm:px-4 py-2 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm placeholder:text-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-colors';
+  const inputCls = 'w-full px-3 sm:px-4 py-2 bg-[var(--bg-deep)] border border-[var(--border)] rounded-xl text-[var(--text)] text-sm font-qaranta placeholder:text-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--orange)] transition-colors';
 
   return (
     <div className="min-h-screen bg-[var(--bg-deep)] py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
@@ -77,10 +77,10 @@ export default function AdminProducts() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)]">Gestion des Produits</h1>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">{total} produit{total > 1 ? 's' : ''} au catalogue</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text)] font-request">Gestion des Produits</h1>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 font-qaranta">{total} produit{total > 1 ? 's' : ''} au catalogue</p>
           </div>
-          <button onClick={openCreate} className="px-4 py-2.5 bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-[var(--orange)]/25 transition-all cursor-pointer flex items-center gap-2 justify-center">
+          <button onClick={openCreate} className="px-4 py-2.5 bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-[var(--orange)]/25 transition-all cursor-pointer flex items-center gap-2 justify-center font-qaranta">
             <span className="text-lg">+</span> Ajouter un produit
           </button>
         </div>
@@ -89,9 +89,9 @@ export default function AdminProducts() {
         <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border)] p-3 sm:p-4 mb-4 sm:mb-6 flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-sm">🔍</span>
-            <input type="text" placeholder="Rechercher..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} className={`${inputCls} !pl-10`} />
+            <input type="text" placeholder="Rechercher..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} className={`${inputCls} !pl-10 font-qaranta`} />
           </div>
-          <select value={filterCategory} onChange={(e) => { setFilterCategory(e.target.value); setPage(1); }} className={`${inputCls} sm:w-48`}>
+          <select value={filterCategory} onChange={(e) => { setFilterCategory(e.target.value); setPage(1); }} className={`${inputCls} sm:w-48 font-qaranta`}>
             <option value="">Toutes catégories</option>
             {CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_ICONS[c]} {c}</option>)}
           </select>
@@ -103,13 +103,13 @@ export default function AdminProducts() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-[var(--border)] bg-[var(--bg-deep)]/50">
-                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Produit</th>
-                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Marque</th>
-                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Catégorie</th>
-                  <th className="text-right py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Prix</th>
-                  <th className="text-center py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Stock</th>
-                  <th className="text-center py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Note</th>
-                  <th className="text-right py-3 px-4 text-[var(--text-muted)] font-medium text-xs">Actions</th>
+                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Produit</th>
+                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Marque</th>
+                  <th className="text-left py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Catégorie</th>
+                  <th className="text-right py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Prix</th>
+                  <th className="text-center py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Stock</th>
+                  <th className="text-center py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Note</th>
+                  <th className="text-right py-3 px-4 text-[var(--text-muted)] font-medium text-xs font-qaranta">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,10 +122,10 @@ export default function AdminProducts() {
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         {p.image ? <img src={p.image} alt="" className="w-10 h-10 rounded-lg object-cover bg-[var(--bg-deep)]" /> : <div className="w-10 h-10 rounded-lg bg-[var(--bg-deep)] flex items-center justify-center text-lg">{CATEGORY_ICONS[p.category] || '📦'}</div>}
-                        <div><p className="text-[var(--text)] font-medium truncate max-w-[200px] text-sm">{p.name}</p><p className="text-[10px] text-[var(--text-muted)]">{p.numReviews} avis</p></div>
+                        <div><p className="text-[var(--text)] font-medium truncate max-w-[200px] text-sm font-request">{p.name}</p><p className="text-[10px] text-[var(--text-muted)] font-qaranta">{p.numReviews} avis</p></div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-[var(--text)] text-sm">{p.brand}</td>
+                    <td className="py-3 px-4 text-[var(--text)] text-sm font-qaranta">{p.brand}</td>
                     <td className="py-3 px-4"><span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-[var(--orange)]/10 text-[var(--orange)]">{CATEGORY_ICONS[p.category]} {p.category}</span></td>
                     <td className="py-3 px-4 text-right font-mono text-[var(--text)] text-sm">{p.price.toLocaleString('fr-FR')}€</td>
                     <td className="py-3 px-4 text-center"><span className={`inline-block w-2 h-2 rounded-full ${p.inStock ? 'bg-emerald-400' : 'bg-red-400'}`} /></td>
@@ -145,7 +145,7 @@ export default function AdminProducts() {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--border)]">
-              <p className="text-xs text-[var(--text-muted)]">Page {page}/{totalPages}</p>
+              <p className="text-xs text-[var(--text-muted)] font-qaranta">Page {page}/{totalPages}</p>
               <div className="flex gap-2">
                 <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 rounded-lg border border-[var(--border)] text-[var(--text)] text-sm disabled:opacity-30 hover:border-[var(--orange)] transition-colors cursor-pointer">←</button>
                 <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 rounded-lg border border-[var(--border)] text-[var(--text)] text-sm disabled:opacity-30 hover:border-[var(--orange)] transition-colors cursor-pointer">→</button>
@@ -171,10 +171,10 @@ export default function AdminProducts() {
               <div className="flex items-center gap-3 mb-2.5">
                 {p.image ? <img src={p.image} alt="" className="w-11 h-11 rounded-lg object-cover bg-[var(--bg-deep)]" /> : <div className="w-11 h-11 rounded-lg bg-[var(--bg-deep)] flex items-center justify-center text-xl">{CATEGORY_ICONS[p.category] || '📦'}</div>}
                 <div className="flex-1 min-w-0">
-                  <p className="text-[var(--text)] font-medium text-sm truncate">{p.name}</p>
+                  <p className="text-[var(--text)] font-medium text-sm truncate font-request">{p.name}</p>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] text-[var(--text-muted)]">{p.brand}</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--orange)]/10 text-[var(--orange)]">{p.category}</span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-qaranta">{p.brand}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--orange)]/10 text-[var(--orange)] font-qaranta">{p.category}</span>
                     <span className={`w-1.5 h-1.5 rounded-full ${p.inStock ? 'bg-emerald-400' : 'bg-red-400'}`} />
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export default function AdminProducts() {
           {/* Mobile pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between pt-2">
-              <p className="text-xs text-[var(--text-muted)]">Page {page}/{totalPages}</p>
+              <p className="text-xs text-[var(--text-muted)] font-qaranta">Page {page}/{totalPages}</p>
               <div className="flex gap-2">
                 <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg border border-[var(--border)] text-[var(--text)] text-sm disabled:opacity-30 cursor-pointer">←</button>
                 <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg border border-[var(--border)] text-[var(--text)] text-sm disabled:opacity-30 cursor-pointer">→</button>
@@ -217,53 +217,53 @@ export default function AdminProducts() {
                 className="bg-[var(--bg-card)] rounded-t-2xl sm:rounded-2xl border border-[var(--border)] w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto"
               >
                 <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[var(--border)] sticky top-0 bg-[var(--bg-card)] z-10">
-                  <h2 className="text-sm sm:text-lg font-bold text-[var(--text)]">{editing ? 'Modifier le produit' : 'Nouveau produit'}</h2>
+                  <h2 className="text-sm sm:text-lg font-bold text-[var(--text)] font-request">{editing ? 'Modifier le produit' : 'Nouveau produit'}</h2>
                   <button onClick={() => setShowModal(false)} className="p-2 rounded-lg hover:bg-[var(--bg-deep)] text-[var(--text-muted)] transition-colors cursor-pointer">✕</button>
                 </div>
                 <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                   {formError && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm">{formError}</div>}
                   <div>
-                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Nom *</label>
+                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Nom *</label>
                     <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required maxLength={100} placeholder="Galaxy S25 Ultra" className={inputCls} />
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Marque *</label>
+                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Marque *</label>
                       <select value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} className={inputCls}>{BRANDS.map((b) => <option key={b} value={b}>{b}</option>)}</select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Catégorie *</label>
+                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Catégorie *</label>
                       <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className={inputCls}>{CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_ICONS[c]} {c}</option>)}</select>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Prix (€) *</label>
+                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Prix (€) *</label>
                       <input type="number" min="0" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} required placeholder="999" className={`${inputCls} font-mono`} />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">En stock</label>
+                      <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">En stock</label>
                       <button type="button" onClick={() => setForm({ ...form, inStock: !form.inStock })} className={`w-full px-4 py-2 rounded-xl border text-sm font-medium transition-colors cursor-pointer ${form.inStock ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
                         {form.inStock ? '✓ En stock' : '✕ Rupture'}
                       </button>
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">URL image</label>
+                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">URL image</label>
                     <input type="url" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://..." className={inputCls} />
                     {form.image && <img src={form.image} alt="Preview" className="mt-2 h-16 rounded-lg object-cover" onError={(e) => { e.target.style.display = 'none'; }} />}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Description *</label>
+                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Description *</label>
                     <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} required rows={3} minLength={10} placeholder="Description (min. 10 car.)..." className={`${inputCls} resize-none`} />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5">Spécifications (JSON)</label>
+                    <label className="block text-xs font-medium text-[var(--text-muted)] mb-1.5 font-qaranta">Spécifications (JSON)</label>
                     <textarea value={form.specs} onChange={(e) => setForm({ ...form, specs: e.target.value })} rows={3} placeholder='{"écran": "6.8\"", "RAM": "12 Go"}' className={`${inputCls} font-mono text-xs resize-none`} />
                   </div>
                   <div className="flex gap-3 pt-2">
-                    <button type="button" onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--text-muted)] transition-colors text-sm cursor-pointer">Annuler</button>
-                    <button type="submit" disabled={saving} className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white font-medium text-sm hover:shadow-lg hover:shadow-[var(--orange)]/25 transition-all disabled:opacity-50 cursor-pointer">
+                    <button type="button" onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--text-muted)] transition-colors text-sm cursor-pointer font-qaranta">Annuler</button>
+                    <button type="submit" disabled={saving} className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--orange)] to-amber-500 text-white font-medium text-sm hover:shadow-lg hover:shadow-[var(--orange)]/25 transition-all disabled:opacity-50 cursor-pointer font-qaranta">
                       {saving ? 'Enregistrement...' : editing ? 'Mettre à jour' : 'Créer'}
                     </button>
                   </div>
@@ -279,11 +279,11 @@ export default function AdminProducts() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setDeleteTarget(null)}>
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} onClick={(e) => e.stopPropagation()} className="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-5 sm:p-6 w-full max-w-md text-center">
                 <div className="text-4xl mb-3">⚠️</div>
-                <h3 className="text-base sm:text-lg font-bold text-[var(--text)] mb-2">Supprimer ce produit ?</h3>
-                <p className="text-xs sm:text-sm text-[var(--text-muted)] mb-5">« {deleteTarget.name} » sera définitivement supprimé.</p>
+                <h3 className="text-base sm:text-lg font-bold text-[var(--text)] mb-2 font-request">Supprimer ce produit ?</h3>
+                <p className="text-xs sm:text-sm text-[var(--text-muted)] mb-5 font-qaranta">« {deleteTarget.name} » sera définitivement supprimé.</p>
                 <div className="flex gap-3">
-                  <button onClick={() => setDeleteTarget(null)} className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--text-muted)] transition-colors text-sm cursor-pointer">Annuler</button>
-                  <button onClick={handleDelete} disabled={deleting} className="flex-1 px-4 py-2.5 rounded-xl bg-red-500 text-white font-medium text-sm hover:bg-red-600 transition-colors disabled:opacity-50 cursor-pointer">{deleting ? 'Suppression...' : 'Supprimer'}</button>
+                  <button onClick={() => setDeleteTarget(null)} className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--text-muted)] transition-colors text-sm cursor-pointer font-qaranta">Annuler</button>
+                  <button onClick={handleDelete} disabled={deleting} className="flex-1 px-4 py-2.5 rounded-xl bg-red-500 text-white font-medium text-sm hover:bg-red-600 transition-colors disabled:opacity-50 cursor-pointer font-qaranta">{deleting ? 'Suppression...' : 'Supprimer'}</button>
                 </div>
               </motion.div>
             </motion.div>
