@@ -10,7 +10,7 @@
 
 *Plateforme e-commerce complète pour produits tech neufs et d'occasion, avec un système unique de vérification vidéo des annonces par les administrateurs.*
 
-[Démo Live](https://techpulse.example.com) · [Documentation](docs/) · [Signaler un bug](https://github.com/mathieufenouil/techpulse/issues)
+[Démo Live](https://techpulse-portfolio.com) · [Documentation](docs/) · [Signaler un bug](https://github.com/mathieufenouil/techpulse/issues)
 
 </div>
 
